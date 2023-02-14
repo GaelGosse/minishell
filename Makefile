@@ -11,10 +11,12 @@ NC = \033[0m
 
 ##### VAR #####
 NAME   = minishell
-CC     = gcc -lreadline -Wall -Werror -Wextra -g3
+CC     = gcc -Wall -Werror -Wextra -g3 
 # -MMD -MP
 
-SRC  := ft_prompt.c
+SRC  := ft_prompt.c \
+ft_strncmp.c \
+echo.c \
 
 OBJ = $(SRC:%.c=%.o)
 DEPS = $(OBJ:%.o=%.d)
@@ -26,8 +28,7 @@ $(NAME) : $(OBJ)
 	@echo
 	@echo -e "${YELLOW} ----- compile -----${NC}"
 	@echo
-	$(MAKE) --no-print-directory -C libft
-	$(CC) $(OBJ) libft/libft.a -o $(NAME) 
+	$(CC) $(OBJ) -lreadline -o $(NAME) 
 
 %.o : %.c Makefile
 	$(CC) -c $< -o $@
@@ -38,7 +39,6 @@ clean:
 	@echo
 	rm -f $(OBJ)
 	rm -f $(DEPS)
-	make fclean --no-print-directory -C libft
 	@echo
 	@echo -e "${YELLOW} ----- ✅ clean done -----${NC}"
 	@echo
