@@ -14,43 +14,60 @@ NAME   = minishell
 CC     = gcc -Wall -Werror -Wextra -g3 
 # -MMD -MP
 
-SRC  := ft_prompt.c \
-ft_strncmp.c \
-echo.c \
+SRC  := main_mael.c \
+lib/ft_strncmp.c \
+built_in/echo.c \
+
+SRC_MAEL  := main_mael.c \
+lib/ft_strncmp.c \
+built_in/echo.c \
 
 OBJ = $(SRC:%.c=%.o)
+OBJS_MAEL = $(SRC_MAEL:%.c=%.o)
 DEPS = $(OBJ:%.o=%.d)
+
+OBJ_DIR := objs_mael/
+OBJ_MAEL = $(addprefix $(OBJ_DIR), ${SRC_MAEL:.c=.o})
 
 ##### RULES #####
 all: $(NAME)
 
 $(NAME) : $(OBJ)
 	@echo
-	@echo -e "${YELLOW} ----- compile -----${NC}"
+	@echo -e "${CYAN} ----- compile -----${NC}"
 	@echo
 	$(CC) $(OBJ) -lreadline -o $(NAME) 
 
-%.o : %.c Makefile
+# ${OBJ_DIR}%.o : %.c
+
+${OBJ_DIR}%.o : %.c Makefile
 	$(CC) -c $< -o $@
+
+test_mael:
+	@echo
+	@echo -e "${CYAN} ----- compile -----${NC}"
+	@echo
+	$(CC) $(OBJ_MAEL) -lreadline -o $(NAME)
 
 clean:
 	@echo
-	@echo -e "${YELLOW} ----- clean...  -----${NC}"
+	@echo -e "${CYAN} ----- clean...  -----${NC}"
 	@echo
+	rm -f $(OBJ_MAEL)
 	rm -f $(OBJ)
 	rm -f $(DEPS)
 	@echo
-	@echo -e "${YELLOW} ----- ✅ clean done -----${NC}"
+	@echo -e "${CYAN} ----- ✅ clean done -----${NC}"
 	@echo
 
 fclean :
 	@echo
-	@echo -e "${YELLOW} ----- clean...  -----${NC}"
+	@echo -e "${CYAN} ----- clean...  -----${NC}"
 	@echo
 	make clean --no-print-directory
 	rm -f $(NAME)
 	@echo
-	@echo -e "${YELLOW} ----- ✅ fclean done -----${NC}"
+	@echo -e "${CYAN} ----- ✅ fclean done -----${NC}"
 	@echo
 
 re : fclean all 
