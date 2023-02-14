@@ -23,7 +23,7 @@ int	ft_cd(int argc, char **str)
 		{
 			if (chdir(str[2]) == 0)
 			{
-				//printf("here\n");
+				printf("here\n");
 				return (SUCCESS);
 			}
 			else
