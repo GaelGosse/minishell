@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv)
 {
-	(void)argc;
+	//(void)argc;
 	//(void)argv;
 	//char *input;
 
@@ -17,7 +17,8 @@ int main(int argc, char **argv)
 	// 	printf("input: %s\n", input);
 	// }
 	//printf("echo = %d\n", ft_echo(argv));
-	ft_echo(argv);
+	//ft_echo(argv);
+	printf("res = %d\n", ft_cd(argc, argv));
 	return (0);
 
 }

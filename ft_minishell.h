@@ -41,6 +41,7 @@
 int     main(int argc, char **argv);
 int     ft_strncmp(char *str, char *dest, int n);
 int   ft_echo(char **str);
+int     ft_cd(int argc, char **str);
 
 
 #endif

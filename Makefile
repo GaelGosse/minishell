@@ -14,13 +14,15 @@ NAME   = minishell
 CC     = gcc -Wall -Werror -Wextra -g3 
 # -MMD -MP
 
-SRC  := main_mael.c \
+SRC  := main.c \
 lib/ft_strncmp.c \
 built_in/echo.c \
+built_in/cd.c \
 
-SRC_MAEL  := main_mael.c \
+SRC_MAEL  := main.c \
 lib/ft_strncmp.c \
 built_in/echo.c \
+built_in/cd.c \
 
 OBJ = $(SRC:%.c=%.o)
 OBJS_MAEL = $(SRC_MAEL:%.c=%.o)
