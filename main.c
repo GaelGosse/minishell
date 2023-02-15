@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:26:23 by gael              #+#    #+#             */
-/*   Updated: 2023/02/15 15:11:46 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/15 16:44:16 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,21 @@
 
 
 // main gael
-int ft_test(void)
-{
-	printf("8: %i\n", 8);
-	return (4);
-}
 int main(void)
 {
-	t_mshell	mshell;
+	t_minish	minish;
 
-	while (1)
-	{
-		mshell.input = NULL;
-		// ft_find_args(&mshell, "ls -l --color=never 	 -a | /usr/bin/grep -i --color=never  	   in >     result.txt");
-		mshell.input = readline("\n\033[31m>\033[0m");
-		printf(BLUE"mshell.input: %s\n"RESET, mshell.input);
+	// while (1)
+	// {
+		minish.output = NULL;
+		// ft_find_args(&minish, "ls -l --color=never 	 -a | /usr/bin/grep -i --color=never  	   in >     result.txt");
+		// minish.output = readline("\n\033[31m>\033[0m");
+		// printf(BLUE"minish.output: %s\n"RESET, minish.output);
 		// process 
-		ft_find_args(&mshell);
-		if (ft_strncmp(mshell.input, "exit", 4) == 0)
-			break ;
-	}
+		ft_find_args(&minish);
+		// if (ft_strncmp(minish.output, "exit", 4) == 0)
+		// 	break ;
+	// }
+	(void)minish;
 	return (0);
 }

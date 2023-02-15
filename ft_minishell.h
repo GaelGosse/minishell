@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 11:14:58 by gael              #+#    #+#             */
-/*   Updated: 2023/02/14 11:18:34 by gael             ###   ########.fr       */
+/*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
+/*   Updated: 2023/02/15 16:49:52 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
-# include <stdio.h>
 # include <sys/types.h>
 # include <sys/time.h>
 # include <sys/resource.h>
@@ -27,6 +26,7 @@
 # include <signal.h>
 # include <stdarg.h>
 # include <stddef.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <termios.h>
@@ -34,14 +34,42 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+// ------------------------------ include ----------------------------------- //
+# include "color.h"
+// ---------------------------- end include --------------------------------- //
+
 # define SUCCESS 1
 # define FAIL -1
 
+// ------------------------------ define ------------------------------------ //
+# define D_QUOTE 34
+# define S_QUOTE 39
+// ---------------------------- end define ---------------------------------- //
 
-int     main(int argc, char **argv);
-int     ft_strncmp(char *str, char *dest, int n);
-int   ft_echo(char **str);
-int     ft_cd(int argc, char **str);
+typedef struct s_tab_output
+{
+	char	*word;
+	
+}		t_tab_output;
 
+typedef struct s_minish
+{
+	char			*output;
+	t_tab_output	tab_output;
+	t_tab_output	tab_output_head;
+}		t_minish;
+
+//lib/ft_is_separator.c
+int				ft_is_sep(char chr);
+//lib/ft_strncmp.c
+int				ft_strncmp(char *str, char *dest, int n);
+//main.c
+//parsing/ft_parsing.c
+int				count_word(char *line);
+int				ft_find_args(t_minish *minish);
+//built_in/echo.c
+int				ft_echo(char **str);
+//built_in/cd.c
+int				ft_strlen(char *str);
 
 #endif
