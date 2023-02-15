@@ -14,15 +14,14 @@ NAME   = minishell
 CC     = gcc -Wall -Werror -Wextra -g3 
 # -MMD -MP
 
+# SRC  := main_mael.c \
+# lib/ft_strncmp.c \
+# built_in/echo.c \
+
 SRC  := main.c \
 lib/ft_strncmp.c \
-built_in/echo.c \
-built_in/cd.c \
-
-SRC_MAEL  := main.c \
-lib/ft_strncmp.c \
-built_in/echo.c \
-built_in/cd.c \
+lib/ft_is_separator.c \
+parsing/ft_parsing.c \
 
 OBJ = $(SRC:%.c=%.o)
 OBJS_MAEL = $(SRC_MAEL:%.c=%.o)
@@ -35,10 +34,11 @@ OBJ_MAEL = $(addprefix $(OBJ_DIR), ${SRC_MAEL:.c=.o})
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-	@echo
 	@echo -e "${CYAN} ----- compile -----${NC}"
 	@echo
 	$(CC) $(OBJ) -lreadline -o $(NAME) 
+	@echo
+	@echo -e "${CYAN} ----- ✅ compiled -----${NC}"
 
 # ${OBJ_DIR}%.o : %.c
 
