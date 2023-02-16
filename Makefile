@@ -21,7 +21,8 @@ CC     = gcc -Wall -Werror -Wextra -g3
 SRC  := main.c \
 lib/ft_strncmp.c \
 lib/ft_is_separator.c \
-parsing/ft_parsing.c \
+parsing/parsing.c \
+parsing/quote.c \
 
 OBJ = $(SRC:%.c=%.o)
 OBJS_MAEL = $(SRC_MAEL:%.c=%.o)

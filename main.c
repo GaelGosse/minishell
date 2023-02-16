@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:26:23 by gael              #+#    #+#             */
-/*   Updated: 2023/02/15 16:44:16 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/16 01:43:23 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@
 // main gael
 int main(void)
 {
-	t_minish	minish;
+	t_mini_sh	mini_sh;
 
 	// while (1)
 	// {
-		minish.output = NULL;
-		// ft_find_args(&minish, "ls -l --color=never 	 -a | /usr/bin/grep -i --color=never  	   in >     result.txt");
-		// minish.output = readline("\n\033[31m>\033[0m");
-		// printf(BLUE"minish.output: %s\n"RESET, minish.output);
+		mini_sh.output = NULL;
+		// ft_find_args(&mini_sh, "ls -l --color=never 	 -a | /usr/bin/grep -i --color=never  	   in >     result.txt");
+		// mini_sh.output = readline("\n\033[31m>\033[0m");
+		// printf(BLUE"mini_sh.output: %s\n"RESET, mini_sh.output);
 		// process 
-		ft_find_args(&minish);
-		// if (ft_strncmp(minish.output, "exit", 4) == 0)
+		ft_find_args(&mini_sh);
+		// if (ft_strncmp(mini_sh.output, "exit", 4) == 0)
 		// 	break ;
 	// }
-	(void)minish;
+	(void)mini_sh;
 	return (0);
 }
