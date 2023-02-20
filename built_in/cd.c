@@ -12,15 +12,6 @@
 
 #include "../ft_minishell.h"
 
-int	ft_strlen(char *str)
-{
-	int ite = 0;
-
-	while (str[ite])
-		ite++;
-	return (ite):
-}
-
 int	pwd(char *str)
 {
 	printf("%s\n", getcwd(str, ft_strlen(str)));

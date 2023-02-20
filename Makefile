@@ -19,10 +19,19 @@ CC     = gcc -Wall -Werror -Wextra -g3
 # built_in/echo.c \
 
 SRC  := main.c \
-lib/ft_strncmp.c \
+lib/ft_cmp.c \
+lib/ft_strdup.c \
+lib/ft_strlen.c \
 lib/ft_is_separator.c \
+lib/ft_lstnew_word.c \
+lib/ft_lstadd_back.c \
+lib/ft_split.c \
+lib/ft_strjoin.c \
+parsing/expand.c \
 parsing/parsing.c \
+parsing/set_type.c \
 parsing/quote.c \
+parsing/ft_find_path.c
 
 OBJ = $(SRC:%.c=%.o)
 OBJS_MAEL = $(SRC_MAEL:%.c=%.o)

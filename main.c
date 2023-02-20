@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:26:23 by gael              #+#    #+#             */
-/*   Updated: 2023/02/16 01:43:23 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/19 14:01:18 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 
 
 // main gael
-int main(void)
+int main(int argc, char *argv[], char **envp)
 {
 	t_mini_sh	mini_sh;
 
+	mini_sh.env = envp;
 	// while (1)
 	// {
 		mini_sh.output = NULL;
@@ -51,5 +52,7 @@ int main(void)
 		// 	break ;
 	// }
 	(void)mini_sh;
+	(void)argc;
+	(void)argv;
 	return (0);
 }
