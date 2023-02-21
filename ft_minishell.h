@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
-/*   Updated: 2023/02/20 16:35:10 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/21 13:54:10 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char			*ft_strdup(char *str);
 char			*ft_strdup_len(char *str, int start, int end);
 //main.c
 //parsing/expand.c
+void			check_qt_open(t_arr_output *mini_tmp, int *ite_expand, int *is_dquote);
 void			expand(t_mini_sh *mini_sh);
 int				ft_isthere_dollar(char *str);
 //parsing/ft_find_path.c
