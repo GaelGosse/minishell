@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:30:08 by gael              #+#    #+#             */
-/*   Updated: 2023/02/20 00:07:54 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/23 14:30:30 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_isalpha(int chr)
 
 int	ft_is_valid_export(char chr)
 {
+	// is num
 	if (ft_isalpha(chr) == SUCCESS || chr == '_')
 		return (SUCCESS);
 	return (FAIL);

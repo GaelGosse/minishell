@@ -12,6 +12,7 @@ NC = \033[0m
 ##### VAR #####
 NAME   = minishell
 CC     = gcc -Wall -Werror -Wextra -g3 
+# -fdump-rtl-expand
 # CC     = clang -fsanitize=memory -fno-omit-frame-pointer
 # CC     = clang -fsanitize=address -fno-omit-frame-pointer
 # -MMD -MP

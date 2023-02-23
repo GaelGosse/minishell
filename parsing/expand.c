@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 02:21:41 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 11:41:32 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/23 14:25:43 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_replace_dollar(t_mini_sh *mn_sh, t_arr_output *mn_tmp, int *i_expnd)
 	// free(new_w);
 	// print_word(mn_tmp->word);
 	ft_print_rl_out(mn_sh);
+	printf(BACK_WHITE" -------------------------------------------- "RST"\n\n");
 	if (ft_isthere_dollar(mn_tmp->word) == SUCCESS)
 		expand(mn_sh);
 }
