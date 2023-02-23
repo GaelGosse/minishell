@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:27:16 by gael              #+#    #+#             */
-/*   Updated: 2023/02/19 00:23:00 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/22 00:43:33 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**ft_split(const char *str, char sep)
 		{
 			tab[t] = (char *)malloc((word_len(str, sep, i) + 1) * sizeof(char));
 			if (!tab[t])
-				return (NULL);
+				return (ft_free_all(NULL, tab), NULL);
 			while (str[i] && str[i] != sep)
 				tab[t][i_ins++] = str[i++];
 			tab[t][i_ins] = '\0';

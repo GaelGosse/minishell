@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:26:23 by gael              #+#    #+#             */
-/*   Updated: 2023/02/19 14:01:18 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/23 08:45:05 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,22 @@
 
 
 // main gael
-int main(int argc, char *argv[], char **envp)
+int	main(int argc, char *argv[], char **envp)
 {
 	t_mini_sh	mini_sh;
+	int	env_length;
 
-	mini_sh.env = envp;
+	// mini_sh.env = envp;
+	env_length = 0;
+	while (envp[env_length])
+		env_length++;
+	mini_sh.env = (char **)malloc((sizeof (char *)) * (env_length + 1));
+	env_length = -1;
+	while (envp[++env_length])
+	{
+		mini_sh.env[env_length] = ft_strdup(envp[env_length]);
+	}
+	mini_sh.env[env_length] = 0;
 	// while (1)
 	// {
 		mini_sh.output = NULL;
@@ -51,6 +62,14 @@ int main(int argc, char *argv[], char **envp)
 		// if (ft_strncmp(mini_sh.output, "exit", 4) == 0)
 		// 	break ;
 	// }
+	free_parsing(&mini_sh);
+	free_env(&mini_sh);
+	// env_length = -1;
+	// while (mini_sh.env[++env_length])
+	// {
+	// 	free(mini_sh.env[env_length]);
+	// }
+	// free(mini_sh.env);
 	(void)mini_sh;
 	(void)argc;
 	(void)argv;

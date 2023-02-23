@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 17:40:08 by gael              #+#    #+#             */
-/*   Updated: 2023/02/19 01:29:11 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/23 00:38:50 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int ft_strcmp(char *str, char *dest)
 		return (-1);
 	if (!dest[0])
 		return (1);
-	while ((str[i] == dest[i]))
+	while (str[i] == dest[i])
 		i++;
 	if (!str[i])
 		return (0 - dest[i]);

@@ -6,22 +6,11 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:54:57 by ggosse            #+#    #+#             */
-/*   Updated: 2023/02/20 01:22:25 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/23 12:12:34 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_minishell.h"
-
-// void	ft_free_all(char *str, char **tab)
-// {
-// 	int	ite;
-
-// 	ite = -1;
-// 	while (tab[++ite])
-// 		free(tab[ite]);
-// 	free(tab);
-// 	free(str);
-// }
 
 int	ft_find_cmd(char **envp, char *cmd_to_test, int ite_env)
 {
@@ -38,19 +27,21 @@ int	ft_find_cmd(char **envp, char *cmd_to_test, int ite_env)
 	{
 		path_absolue = ft_strjoin(path_cmd[ite_data], "/");
 		cmd_path_absolue = ft_strjoin(path_absolue, cmd);
-		// free(path_absolue);
-		if (access(cmd_path_absolue, X_OK) == 0)
+		free(path_absolue);
+		if(access(cmd_path_absolue, X_OK) == 0)
 		{
-			// free(cmd_to_test);
+			free(cmd_to_test);
 			cmd_to_test = cmd_path_absolue;
 			cmd_to_test[ft_strlen(cmd_path_absolue)] = '\0';
-			// ft_free_all(cmd, path_cmd),
+			free(cmd_path_absolue);
+			free(cmd);
+			// ft_free_all(cmd, path_cmd);
 			return (SUCCESS);
 		}
-		// else
-		// 	free(cmd_path_absolue);
+		else
+			free(cmd_path_absolue);
 	}
-	// ft_free_all(cmd, path_cmd),
+	ft_free_all(cmd, path_cmd);
 	return (FAIL);
 }
 
@@ -73,7 +64,7 @@ int	ft_find_env(char **envp, char *cmd_to_test)
 {
 	if (!cmd_to_test)
 		return (FAIL);
-	if (!access(cmd_to_test, X_OK) == 0)
+	if ((!access(cmd_to_test, X_OK)) == 0)
 	{
 		if (envp[0])
 			return (ft_find_path(envp, cmd_to_test));
@@ -91,7 +82,9 @@ char	*ft_find_var_env(char **envp, char *var_search)
 	int		ite_env;
 	int		ite_env_char;
 	int		save;
+	char	*res_var_env;
 
+	res_var_env = NULL;
 	save = 0;
 	ite_env_char = 0;
 	ite_env = -1;
@@ -106,15 +99,19 @@ char	*ft_find_var_env(char **envp, char *var_search)
 			ite_env_char = 0;
 			while (envp[ite_env][ite_env_char] != '=')
 				ite_env_char++;
-			if (ft_strncmp(ft_strdup_len(envp[ite_env], 0, ite_env_char+1), var_search, ft_strlen(var_search)) == 0)
+			res_var_env = ft_strdup_len(envp[ite_env], 0, ite_env_char + 1);
+			if (ft_strncmp(res_var_env, var_search, ft_strlen(var_search)) == 0)
 			{
 				ite_env_char++;
 				save = ite_env_char;
 				while (envp[ite_env][ite_env_char])
 					ite_env_char++;
+				free(res_var_env);
 				return (ft_strdup_len(envp[ite_env], save, ite_env_char));
 			}
+			free(res_var_env);
 		}
+		free(var_env);
 	}
 	(void)ite_env_char;
 	(void)ite_env;

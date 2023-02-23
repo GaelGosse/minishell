@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
-/*   Updated: 2023/02/21 13:54:10 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/23 12:13:01 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,24 @@ int				ft_isalpha(int chr);
 char			**ft_split(const char *str, char sep);
 //lib/ft_lstnew_word.c
 t_arr_output *ft_lstnew_malloc(int size);
-t_arr_output *ft_lstnew_word(char *content);
+t_arr_output *ft_lstnew_word(char *content, int save, int ite);
 //lib/ft_strjoin.c
 char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strjoin_w_free(char *s1, char *s2);
 //lib/ft_strdup.c
 char			*ft_strdup(char *str);
 char			*ft_strdup_len(char *str, int start, int end);
 //main.c
+//free/free_parsing.c
+void			free_env(t_mini_sh *mini_sh);
+void			free_parsing(t_mini_sh *mini_sh);
+void			ft_free_all(char *str, char **tab);
 //parsing/expand.c
-void			check_qt_open(t_arr_output *mini_tmp, int *ite_expand, int *is_dquote);
+void			check_qt_open(t_arr_output *mn_tmp, int *i_expnd, int *is_qt);
 void			expand(t_mini_sh *mini_sh);
 int				ft_isthere_dollar(char *str);
+void			ft_replace_dollar(t_mini_sh *mn_sh, t_arr_output *mn_tmp, int *i_expnd);
+void			print_word(char *new_w);
 //parsing/ft_find_path.c
 int				ft_find_cmd(char **envp, char *cmd_to_test, int ite_env);
 int				ft_find_env(char **envp, char *cmd_to_test);
