@@ -6,13 +6,13 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:54:57 by ggosse            #+#    #+#             */
-/*   Updated: 2023/02/23 12:12:34 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/24 13:16:02 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_minishell.h"
 
-int	ft_find_cmd(char **envp, char *cmd_to_test, int ite_env)
+int	ft_find_cmd(t_mini_sh *mini_sh, int ite_env)
 {
 	char	**path_cmd;
 	char	*cmd_path_absolue;
@@ -21,8 +21,8 @@ int	ft_find_cmd(char **envp, char *cmd_to_test, int ite_env)
 	int		ite_data;
 
 	ite_data = -1;
-	path_cmd = ft_split(envp[ite_env] + 5, ':');
-	cmd = ft_strdup(cmd_to_test);
+	path_cmd = ft_split(mini_sh->env[ite_env] + 5, ':');
+	cmd = ft_strdup(mini_sh->rl_out->word);
 	while (path_cmd[++ite_data])
 	{
 		path_absolue = ft_strjoin(path_cmd[ite_data], "/");
@@ -30,9 +30,9 @@ int	ft_find_cmd(char **envp, char *cmd_to_test, int ite_env)
 		free(path_absolue);
 		if(access(cmd_path_absolue, X_OK) == 0)
 		{
-			free(cmd_to_test);
-			cmd_to_test = cmd_path_absolue;
-			cmd_to_test[ft_strlen(cmd_path_absolue)] = '\0';
+			free(mini_sh->rl_out->word);
+			mini_sh->rl_out->word = ft_strdup(cmd_path_absolue);
+			// mini_sh->rl_out->word[ft_strlen(cmd_path_absolue)] = '\0';
 			free(cmd_path_absolue);
 			free(cmd);
 			// ft_free_all(cmd, path_cmd);
@@ -45,29 +45,29 @@ int	ft_find_cmd(char **envp, char *cmd_to_test, int ite_env)
 	return (FAIL);
 }
 
-int	ft_find_path(char **envp, char *cmd_to_test)
+int	ft_find_path(t_mini_sh *mini_sh)
 {
 	int	ite_env;
 
 	ite_env = -1;
-	while (envp[++ite_env])
+	while (mini_sh->env[++ite_env])
 	{
-		if (ft_strncmp(envp[ite_env], "PATH=", 5) == 0)
+		if (ft_strncmp(mini_sh->env[ite_env], "PATH=", 5) == 0)
 		{
-			return (ft_find_cmd(envp, cmd_to_test, ite_env));
+			return (ft_find_cmd(mini_sh, ite_env));
 		}
 	}
 	return (FAIL);
 }
 
-int	ft_find_env(char **envp, char *cmd_to_test)
+int	ft_find_env(t_mini_sh *mini_sh)
 {
-	if (!cmd_to_test)
+	if (!mini_sh->rl_out->word)
 		return (FAIL);
-	if ((!access(cmd_to_test, X_OK)) == 0)
+	if ((!access(mini_sh->rl_out->word, X_OK)) == 0)
 	{
-		if (envp[0])
-			return (ft_find_path(envp, cmd_to_test));
+		if (mini_sh->env[0])
+			return (ft_find_path(mini_sh));
 	}
 	else
 	{

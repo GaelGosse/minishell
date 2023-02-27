@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:26:23 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 08:45:05 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/27 11:36:37 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,24 @@ int	main(int argc, char *argv[], char **envp)
 		// ft_find_args(&mini_sh, "ls -l --color=never 	 -a | /usr/bin/grep -i --color=never  	   in >     result.txt");
 		// mini_sh.output = readline("\n\033[31m>\033[0m");
 		// printf(BLUE"mini_sh.output: %s\n"RESET, mini_sh.output);
+		// printf("mini_sh.output[5]-48: %i\n", mini_sh.output[5]-48);
 		// process 
 		ft_find_args(&mini_sh);
-		// if (ft_strncmp(mini_sh.output, "exit", 4) == 0)
-		// 	break ;
+	// 	if (ft_strncmp(mini_sh.output, "exit", 4) == 0)
+	// 	{
+	// 		char **str;
+	// 		int res;
+
+	// 		str = ft_split(mini_sh.output, ' ');
+	// 		res = atoi(str[1]);
+	// 		return (res);
+	// 	}
 	// }
 	free_parsing(&mini_sh);
 	free_env(&mini_sh);
 	// env_length = -1;
+		//  si c'est une simplle on interprete pas doublr
+
 	// while (mini_sh.env[++env_length])
 	// {
 	// 	free(mini_sh.env[env_length]);
@@ -73,5 +83,6 @@ int	main(int argc, char *argv[], char **envp)
 	(void)mini_sh;
 	(void)argc;
 	(void)argv;
+	// return ((int)(mini_sh.output[5]));
 	return (0);
 }

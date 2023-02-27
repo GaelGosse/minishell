@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 02:21:41 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 14:25:43 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/27 11:36:16 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,26 @@
 int	ft_isthere_dollar(char *str)
 {
 	int	ite_isdollar;
+	int	is_squote;
 
+	is_squote = FAIL;
 	ite_isdollar = -1;
 	while (str[++ite_isdollar])
 	{
-		if (str[ite_isdollar] == '$')
-			return (SUCCESS);
+		check_qt_open(str, &ite_isdollar, &is_squote);
+		if (is_squote == SUCCESS)
+		{
+			if (str[ite_isdollar] == '$')
+				return (SUCCESS);
+		}
 	}
+	(void)is_squote;
 	return (FAIL);
 }
 
-void	check_qt_open(t_arr_output *mn_tmp, int *i_expnd, int *is_qt)
+void	check_qt_open(char *line, int *i_expnd, int *is_qt)
 {
-	if (mn_tmp->word[*i_expnd] == D_QUOTE)
+	if (line[*i_expnd] == D_QUOTE)
 	{
 		if ((*is_qt) == FAIL)
 			(*is_qt) = SUCCESS;
@@ -53,22 +60,22 @@ void	ft_replace_dollar(t_mini_sh *mn_sh, t_arr_output *mn_tmp, int *i_expnd)
 	new_w = ft_strdup_len(mn_tmp->word, 0, save);
 	dup_len2 = ft_strdup_len(mn_tmp->word, save + 1, (*i_expnd));
 	dup_len3 = ft_find_var_env(mn_sh->env, dup_len2);
-	new_w = ft_strjoin(new_w, dup_len3);
+	new_w = ft_strjoin_w_free(new_w, dup_len3);
 	free(dup_len2);
-	free(dup_len3);
+	// free(dup_len3);
 	save = (*i_expnd);
 	while (mn_tmp->word[(*i_expnd)])
 		(*i_expnd)++;
 	dup_len1 = ft_strdup_len(mn_tmp->word, save, (*i_expnd));
-	new_w = ft_strjoin(new_w, dup_len1);
-	free(dup_len1);
+	new_w = ft_strjoin_w_free(new_w, dup_len1);
+	// free(dup_len1);
 	if (mn_tmp->word[0])
 		free(mn_tmp->word);
 	mn_tmp->word = new_w;
 	// free(new_w);
 	// print_word(mn_tmp->word);
-	ft_print_rl_out(mn_sh);
-	printf(BACK_WHITE" -------------------------------------------- "RST"\n\n");
+	// ft_print_rl_out(mn_sh);
+	// printf(BACK_WHITE" -------------------------------------------- "RST"\n\n");
 	if (ft_isthere_dollar(mn_tmp->word) == SUCCESS)
 		expand(mn_sh);
 }
@@ -84,17 +91,24 @@ void	expand(t_mini_sh *mini_sh)
 	while (mini_tmp)
 	{
 		ite_expand = 0;
-		while (mini_tmp->word[ite_expand])
+		// print_word2(mini_tmp->word);
+		if (mini_tmp->word[0])
 		{
-			check_qt_open(mini_tmp, &ite_expand, &is_dquote);
-			if (is_dquote == SUCCESS)
+			// printf(BACK_GREEN"%c"RST"\n\n", mini_tmp->word[ite_expand]);
+			while (mini_tmp->word[ite_expand])
 			{
-				if (mini_tmp->word[ite_expand] == '$')
-					ft_replace_dollar(mini_sh, mini_tmp, &ite_expand);
+				check_qt_open(mini_tmp->word, &ite_expand, &is_dquote);
+				if (is_dquote == SUCCESS)
+				{
+					if (mini_tmp->word[ite_expand] == '$')
+						ft_replace_dollar(mini_sh, mini_tmp, &ite_expand);
+				}
+				ite_expand++;
 			}
-			ite_expand++;
 		}
 		mini_tmp = mini_tmp->next;
+		if (!mini_tmp)
+			break ;
 	}
 }
 
@@ -107,4 +121,15 @@ void	print_word(char *new_w)
 		x++;
 	}
 	printf(BACK_RED"%i"RST"\n", new_w[x]);
+}
+
+void	print_word2(char *new_w)
+{
+	int x = 0;
+	while (new_w[x])
+	{
+		printf(BACK_PURPLE"%c"RST"", new_w[x]);
+		x++;
+	}
+	printf(BACK_YELLOW"%i"RST"\n", new_w[x]);
 }

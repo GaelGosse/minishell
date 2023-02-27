@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:10:55 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 11:33:03 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/27 11:37:07 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 			// printf("mini_sh->rl_out->word: %s\n", mini_sh->rl_out->word);
 		}
 		expand(mini_sh);
-		// set_type(mini_sh);
-		// ft_print_rl_out(mini_sh);
+		set_type(mini_sh);
+		// remove_quote(mini_sh);
+		ft_print_rl_out(mini_sh);
+		prepare_exec(mini_sh);
 	}
 	return (len_global);
 }
@@ -112,14 +114,15 @@ int	ft_find_args(t_mini_sh *mini_sh)
 	// printf("  0123 \"abc def\"  $		 %i 2\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 \"abc def\"  "));
 	// printf("  0123 | \"abc def\"  $		 %i 3\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 | \"abc def\"  "));
 	// printf("  0123 \"abc'def\" xyz'  $	%i -1\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 \"abc'def\" xyz'  "));
-	printf("  < 	 main.c  /usr/bin/grep -i --color=never 	  in >   \'$USER\'\" $USER-$USER.txt\"   	| ls -l --color=never 	 -a | echo \"|\" \"| >>\""BACK_RED"$	%i 17"RST"\n------------------------------------------------\n",
-	build_result_output(mini_sh, "  < 	 main.c  /usr/bin/grep -i --color=never 	  in >   \'$USER\'\" $USER-$USER.txt\"   	| ls -l --color=never 	 -a | echo \"|\" \"| >>\""));
+	printf("  < 	 main.c  /usr/bin/grep -i \'\"$USER\"\' \"\'$USER\'\" --color=never  	  in >   \'$USER\'\" \'$USER\'-$USER.txt\"   	| ls -l --color=never  	 -a | echo \"|\" \"| >>\""BACK_RED"$	%i 17"RST"\n------------------------------------------------\n",
+	build_result_output(mini_sh, "  < 	 main.c  /usr/bin/grep -i \'\"$USER\"\' \"\'$USER\'\" --color=never 	  in >   \'$USER\'\" \'$USER\'-$USER.txt\"   	| ls -l --color=never 	 -a | echo \"|\" \"| >>\""));
 
 	return (SUCCESS);
 	(void)mini_sh;
 }
 
 /*
+
 int	count_word(char *line)
 {
 	int	ite;

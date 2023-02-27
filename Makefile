@@ -35,6 +35,8 @@ SRC  :=	main.c \
 		parsing/parsing.c \
 		parsing/set_type.c \
 		parsing/quote.c \
+		parsing/remove_quote.c \
+		parsing/prepare_exec.c \
 		parsing/ft_find_path.c
 
 OBJ = $(SRC:%.c=%.o)

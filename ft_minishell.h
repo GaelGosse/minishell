@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 14:25:49 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/27 11:41:16 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ typedef struct s_mini_sh
 {
 	char			*output;
 	char			**env;
+	char			***prepare_exec;
+	int				is_dquote;
+	int				is_squote;
 	t_arr_output	*rl_out;
 	t_arr_output	*rl_out_head;
 }					t_mini_sh;
@@ -103,18 +106,26 @@ void			free_env(t_mini_sh *mini_sh);
 void			free_parsing(t_mini_sh *mini_sh);
 void			ft_free_all(char *str, char **tab);
 //parsing/expand.c
-void			check_qt_open(t_arr_output *mn_tmp, int *i_expnd, int *is_qt);
+void			check_qt_open(char *line, int *i_expnd, int *is_qt);
 void			expand(t_mini_sh *mini_sh);
 int				ft_isthere_dollar(char *str);
 void			ft_replace_dollar(t_mini_sh *mn_sh, t_arr_output *mn_tmp, int *i_expnd);
 void			print_word(char *new_w);
+void			print_word2(char *new_w);
 //parsing/ft_find_path.c
-int				ft_find_cmd(char **envp, char *cmd_to_test, int ite_env);
-int				ft_find_env(char **envp, char *cmd_to_test);
-int				ft_find_path(char **envp, char *cmd_to_test);
+int				ft_find_cmd(t_mini_sh *mini_sh, int ite_env);
+int				ft_find_env(t_mini_sh *mini_sh);
+int				ft_find_path(t_mini_sh *mini_sh);
 char			*ft_find_var_env(char **envp, char *var_search);
+//parsing/remove_quote.c
+int				coun_without_qt(char *str);
+void			remove_quote(t_mini_sh *mini_sh);
+char			*write_without_qt(char *str);
 //parsing/set_type.c
 void			set_type(t_mini_sh *mini_sh);
+//parsing/prepare_exec.c
+int				count_double_arr(t_mini_sh *mini_sh);
+void			prepare_exec(t_mini_sh *mini_sh);
 //parsing/quote.c
 int				check_quote_is_closed(char *line);
 void			count_quote_arg(char *line, int *ite, int quote);
