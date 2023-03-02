@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
-/*   Updated: 2023/02/27 11:41:16 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/02 12:43:06 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 // ------------------------------ define ------------------------------------ //
 # define SUCCESS 1
 # define FAIL -1
+# define FAIL_MALLOC -2
 # define D_QUOTE 34
 # define S_QUOTE 39
 // ---------------------------- end define ---------------------------------- //
@@ -57,12 +58,16 @@ typedef struct s_arr_output
 enum e_type
 {
 	CMD=1,
+	CMD_ABS,
 	PIPE,
 	ARG,
 	OPTION,
 	REDIR_L,
 	REDIR_R,
-	_FILE
+	_FILE,
+	APPEND,
+	HR_DOC,
+	BUILT_IN
 };
 
 typedef struct s_mini_sh
@@ -105,13 +110,12 @@ char			*ft_strdup_len(char *str, int start, int end);
 void			free_env(t_mini_sh *mini_sh);
 void			free_parsing(t_mini_sh *mini_sh);
 void			ft_free_all(char *str, char **tab);
+void			ft_lstclear(t_arr_output **lst);
 //parsing/expand.c
-void			check_qt_open(char *line, int *i_expnd, int *is_qt);
 void			expand(t_mini_sh *mini_sh);
-int				ft_isthere_dollar(char *str);
-void			ft_replace_dollar(t_mini_sh *mn_sh, t_arr_output *mn_tmp, int *i_expnd);
-void			print_word(char *new_w);
-void			print_word2(char *new_w);
+int				ft_isthere_dollar(t_mini_sh *mini_sh);
+void			replace_dollar(t_mini_sh *mini_sh);
+void			toggle_quote(t_mini_sh *mini_sh, char chr);
 //parsing/ft_find_path.c
 int				ft_find_cmd(t_mini_sh *mini_sh, int ite_env);
 int				ft_find_env(t_mini_sh *mini_sh);
@@ -122,7 +126,8 @@ int				coun_without_qt(char *str);
 void			remove_quote(t_mini_sh *mini_sh);
 char			*write_without_qt(char *str);
 //parsing/set_type.c
-void			set_type(t_mini_sh *mini_sh);
+int				is_built_in(t_mini_sh *mini_sh);
+int				set_type(t_mini_sh *mini_sh);
 //parsing/prepare_exec.c
 int				count_double_arr(t_mini_sh *mini_sh);
 void			prepare_exec(t_mini_sh *mini_sh);
@@ -133,8 +138,10 @@ int				count_word(char *line);
 int				quote_is_closed(char *line, int *ite, int quote);
 //parsing/parsing.c
 int				build_result_output(t_mini_sh *mini_sh, char *line);
-int				ft_find_args(t_mini_sh *mini_sh);
+int				ft_parsing(t_mini_sh *mini_sh);
 void			ft_print_rl_out(t_mini_sh *mini_sh);
+void			print_word(char *new_w);
+void			print_word2(char *new_w);
 void			put_word_in_minish(t_mini_sh *mini_sh, char *line, int *save, int *ite);
 //built_in/echo.c
 int				ft_echo(char **str);

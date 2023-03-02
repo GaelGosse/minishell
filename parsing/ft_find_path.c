@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:54:57 by ggosse            #+#    #+#             */
-/*   Updated: 2023/02/24 13:16:02 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/02 12:31:02 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	ft_find_cmd(t_mini_sh *mini_sh, int ite_env)
 		free(path_absolue);
 		if(access(cmd_path_absolue, X_OK) == 0)
 		{
-			free(mini_sh->rl_out->word);
-			mini_sh->rl_out->word = ft_strdup(cmd_path_absolue);
+			// free(mini_sh->rl_out->word);
+			// mini_sh->rl_out->word = ft_strdup(cmd_path_absolue);
 			// mini_sh->rl_out->word[ft_strlen(cmd_path_absolue)] = '\0';
 			free(cmd_path_absolue);
-			free(cmd);
-			// ft_free_all(cmd, path_cmd);
+			// free(cmd);
+			ft_free_all(cmd, path_cmd);
 			return (SUCCESS);
 		}
 		else
@@ -53,9 +53,7 @@ int	ft_find_path(t_mini_sh *mini_sh)
 	while (mini_sh->env[++ite_env])
 	{
 		if (ft_strncmp(mini_sh->env[ite_env], "PATH=", 5) == 0)
-		{
 			return (ft_find_cmd(mini_sh, ite_env));
-		}
 	}
 	return (FAIL);
 }

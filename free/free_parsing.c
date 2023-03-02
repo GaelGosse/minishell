@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:56:00 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 08:07:34 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/02 12:27:12 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@
 // 	tmp = mini_sh;
 // }
 
+void	ft_lstclear(t_arr_output **lst)
+{
+	t_arr_output	*tmp;
+
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->word);
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
 void	free_parsing(t_mini_sh *mini_sh)
 {
 	t_arr_output	*tmp;
@@ -46,14 +60,17 @@ void	free_parsing(t_mini_sh *mini_sh)
 	if (mini_sh->output)
 		free(mini_sh->output);
 
-	while (mini_sh->rl_out)
-	{
-		// printf(BACK_GREEN"mini_sh->rl_out->word: %s"RST"\n", mini_sh->rl_out->word);
-		free(mini_sh->rl_out->word);
-		tmp = mini_sh->rl_out;
-		mini_sh->rl_out = mini_sh->rl_out->next;
-		free(tmp);
-	}
+	mini_sh->rl_out = mini_sh->rl_out_head;
+	ft_lstclear(&mini_sh->rl_out);
+	// while (mini_sh->rl_out)
+	// {
+	// 	printf(BACK_GREEN"mini_sh->rl_out->word: %s"RST"\n", mini_sh->rl_out->word);
+	// 	// free(mini_sh->rl_out->word);
+	// 	// tmp = mini_sh->rl_out;
+	// 	mini_sh->rl_out = mini_sh->rl_out->next;
+	// 	// free(tmp);
+	// }
+	(void)tmp;
 }
 
 void	free_env(t_mini_sh *mini_sh)

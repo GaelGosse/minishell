@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:52:27 by gael              #+#    #+#             */
-/*   Updated: 2023/02/26 17:56:23 by gael             ###   ########.fr       */
+/*   Updated: 2023/02/27 17:18:38 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	count_double_arr(t_mini_sh *mini_sh)
 	mn_tmp->rl_out = mini_sh->rl_out_head;
 	while (mn_tmp->rl_out)
 	{
-		if (mn_tmp->rl_out->type == PIPE)
+		if (mn_tmp->rl_out->type == PIPE || mn_tmp->rl_out->type == REDIR_L || mn_tmp->rl_out->type == REDIR_R)
 			len_double_arr++;
 		mn_tmp->rl_out = mn_tmp->rl_out->next;
 	}
