@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
-/*   Updated: 2023/03/02 12:43:06 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/06 15:03:48 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_mini_sh
 	char			***prepare_exec;
 	int				is_dquote;
 	int				is_squote;
+	int				sep_2;
+	int				nbr_word;
 	t_arr_output	*rl_out;
 	t_arr_output	*rl_out_head;
 }					t_mini_sh;
@@ -90,8 +92,8 @@ int				ft_strncmp(char *str, char *dest, int n);
 //lib/ft_strlen.c
 int				ft_strlen(char *str);
 //lib/ft_is_separator.c
-int				ft_is_sep(char chr);
 int				ft_is_sep_expand(char chr);
+int				ft_is_sep_parse(char chr);
 int				ft_is_valid_export(char chr);
 int				ft_isalpha(int chr);
 //lib/ft_split.c
@@ -101,11 +103,22 @@ t_arr_output *ft_lstnew_malloc(int size);
 t_arr_output *ft_lstnew_word(char *content, int save, int ite);
 //lib/ft_strjoin.c
 char			*ft_strjoin(char *s1, char *s2);
-char			*ft_strjoin_w_free(char *s1, char *s2);
+char			*ft_strjoin_lfree(char *s1, char *s2);
+char			*ft_strjoin_rfree(char *s1, char *s2);
 //lib/ft_strdup.c
 char			*ft_strdup(char *str);
 char			*ft_strdup_len(char *str, int start, int end);
 //main.c
+//exec/sep.c
+int				check_first_is_sep(t_mini_sh *mini_sh);
+int				check_first_is_sep_2(t_mini_sh *mini_sh);
+int				check_first_sep_error_2(t_mini_sh *mini_sh);
+int				count_sep_2(t_mini_sh *mini_sh);
+int				is_sep(char *word);
+//exec/prepare_exec.c
+int				count_double_arr(t_mini_sh *mini_sh);
+int				count_word_for_alloc(t_mini_sh *mini_sh, t_arr_output *rlout);
+int				prepare_exec(t_mini_sh *mini_sh);
 //free/free_parsing.c
 void			free_env(t_mini_sh *mini_sh);
 void			free_parsing(t_mini_sh *mini_sh);
@@ -114,7 +127,8 @@ void			ft_lstclear(t_arr_output **lst);
 //parsing/expand.c
 void			expand(t_mini_sh *mini_sh);
 int				ft_isthere_dollar(t_mini_sh *mini_sh);
-void			replace_dollar(t_mini_sh *mini_sh);
+int				print_interpreted(t_mini_sh *mini_sh);
+void			replace_dollar(t_mini_sh * mini_sh);
 void			toggle_quote(t_mini_sh *mini_sh, char chr);
 //parsing/ft_find_path.c
 int				ft_find_cmd(t_mini_sh *mini_sh, int ite_env);
@@ -128,9 +142,6 @@ char			*write_without_qt(char *str);
 //parsing/set_type.c
 int				is_built_in(t_mini_sh *mini_sh);
 int				set_type(t_mini_sh *mini_sh);
-//parsing/prepare_exec.c
-int				count_double_arr(t_mini_sh *mini_sh);
-void			prepare_exec(t_mini_sh *mini_sh);
 //parsing/quote.c
 int				check_quote_is_closed(char *line);
 void			count_quote_arg(char *line, int *ite, int quote);

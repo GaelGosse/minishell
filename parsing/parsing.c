@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:10:55 by gael              #+#    #+#             */
-/*   Updated: 2023/03/02 11:53:22 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/06 14:38:12 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_print_rl_out(t_mini_sh *mini_sh)
 	t_arr_output	*tmp;
 
 	tmp = mini_sh->rl_out_head;
+	printf("\n");
+	printf(" ----- ----- ----- ----- ----- \n\n");
 	while (tmp)
 	{
 		print_word(tmp->word);
@@ -105,10 +107,10 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 	{
 		while (line[ite])
 		{
-			while (ft_is_sep(line[ite]) == SUCCESS)
+			while (ft_is_sep_parse(line[ite]) == SUCCESS)
 				ite++;
 			save = ite;
-			while (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+			while (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 			{
 				count_quote_arg(line, &ite, D_QUOTE);
 				count_quote_arg(line, &ite, S_QUOTE);
@@ -117,12 +119,11 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 			put_word_in_minish(mini_sh, line, &save, &ite);
 			// printf("mini_sh->rl_out->word: %s\n", mini_sh->rl_out->word);
 		}
-		expand(mini_sh);
+		// expand(mini_sh);
 		if (set_type(mini_sh) == FAIL)
 			return (printf(" ----- something wrong happend ----- \n"), FAIL);
 		// remove_quote(mini_sh);
 		ft_print_rl_out(mini_sh);
-		prepare_exec(mini_sh);
 	}
 	return (len_global + 1);
 }
@@ -137,7 +138,9 @@ int	ft_parsing(t_mini_sh *mini_sh)
 	// printf("\"\"$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "\"\""));
 	// printf("\"e\"$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "\"e\""));
 	// printf("\"abcdef\"$			 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "\"abcdef\""));
-	// printf("abcdef$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "abcdef"));
+	// printf("cat |$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "cat |"));
+	// printf("|$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "|"));
+	printf("< /usr/bin/ls -la -le | cat > out$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "< /usr/bin/ls -la -le | cat > out"));
 	// printf("ls$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "ls"));
 	// printf("  \"abcdef\"  $			 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "  \"abcdef\"  "));
 	// printf("  abcdef  $			 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "  abcdef  "));
@@ -148,9 +151,12 @@ int	ft_parsing(t_mini_sh *mini_sh)
 	// printf("  0123 \"abc def\"  $		 %i 2\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 \"abc def\"  "));
 	// printf("  0123 | \"abc def\"  $		 %i 3\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 | \"abc def\"  "));
 	// printf("  0123 \"abc'def\" xyz'  $	%i -1\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 \"abc'def\" xyz'  "));
-	printf("  < 	 lib  /usr/bin/grep -i \'\"$USER\"\' \"\'$USER\'\" --color=never  	  >   \'$USER\'\" \'$USER\'-$USER.txt\"   	| ls -l --color=never  	 -a | echo >\"|\" \"| >>\""BACK_RED"$	%i 19"RST"\n------------------------------------------------\n",
-	build_result_output(mini_sh, "  < 	 lib  /usr/bin/grep -i \'\"$USER\"\' \"\'$USER\'\" --color=never 	  >   \'$USER\'\" \'$USER\'-$USER.txt\"   	| ls -l --color=never 	 -a | echo \"|\" \"| >>\""));
+	// printf("  < 	 lib  /usr/bin/grep -i | \"abc $TERM def\" \"\" | \'\"$TERM\"\' \"\'$TERM\'\" --color=never  	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l --color=never  	 -a | echo >\"|\" \"| >>\""BACK_RED"$	%i 22"RST"\n------------------------------------------------\n",
+	// build_result_output(mini_sh, "  < 	 lib  /usr/bin/grep -i | \"abc $TERM def\" \"\" | \'\"$TERM\"\' \"\'$TERM\'\" --color=never 	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l --color=never 	 -a | echo \"|\" \"| >>\""));
+	// printf("  < 	 lib  /usr/bin/grep -ri in | echo \"abc $TERM def\" \"\" | echo \'\"$TERM\"\' \"\'$TERM\'\"   	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l  --color=never  	 -a | echo >\"|\" \"| >>\""BACK_RED"$	%i 25"RST"\n------------------------------------------------\n",
+	// build_result_output(mini_sh, "  < 	 lib  /usr/bin/grep -ri in | echo \"abc $TERM def\" \"\" | echo \'\"$TERM\"\' \"\'$TERM\'\"  	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l  --color=never 	 -a | echo \"|\" \"| >>\""));
 
+	prepare_exec(mini_sh);
 	return (SUCCESS);
 	(void)mini_sh;
 }
@@ -166,11 +172,11 @@ int	count_word(char *line)
 	ite = 0;
 	while (line[ite])
 	{
-		while (ft_is_sep(line[ite]) == SUCCESS)
+		while (ft_is_sep_parse(line[ite]) == SUCCESS)
 			ite++;
-		if (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+		if (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 			len++;
-		while (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+		while (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 		{
 			printf("%c", line[ite]);
 			ite++;
@@ -206,12 +212,12 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 	{
 		while (line[ite])
 		{
-			while (ft_is_sep(line[ite]) == SUCCESS)
+			while (ft_is_sep_parse(line[ite]) == SUCCESS)
 				ite++;
-			// if (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+			// if (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 			// 	len_list++;
 			len_word = 0;
-			while (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+			while (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 			{
 				len_word++;
 				ite++;
@@ -222,12 +228,12 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 		ite = 0;
 		while (line[ite])
 		{
-			while (ft_is_sep(line[ite]) == SUCCESS)
+			while (ft_is_sep_parse(line[ite]) == SUCCESS)
 				ite++;
-			// if (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+			// if (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 			// 	len_list++;
 			len_word = 0;
-			while (line[ite] != '\0' && ft_is_sep(line[ite]) == FAIL)
+			while (line[ite] != '\0' && ft_is_sep_parse(line[ite]) == FAIL)
 			{
 				rl_out.word[len_word] = line[ite];
 				len_word++;

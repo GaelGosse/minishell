@@ -6,13 +6,13 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:30:08 by gael              #+#    #+#             */
-/*   Updated: 2023/02/23 14:30:30 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/02 13:47:07 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_minishell.h"
 
-int	ft_is_sep(char chr)
+int	ft_is_sep_parse(char chr)
 {
 	if ((int)chr == 32 || (int)chr == 9)
 		return (SUCCESS);

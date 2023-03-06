@@ -36,8 +36,9 @@ SRC  :=	main.c \
 		parsing/set_type.c \
 		parsing/quote.c \
 		parsing/remove_quote.c \
-		parsing/prepare_exec.c \
-		parsing/ft_find_path.c
+		parsing/ft_find_path.c \
+		exec/sep.c \
+		exec/prepare_exec.c 
 
 OBJ = $(SRC:%.c=%.o)
 OBJS_MAEL = $(SRC_MAEL:%.c=%.o)
