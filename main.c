@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:26:23 by gael              #+#    #+#             */
-/*   Updated: 2023/03/02 11:34:44 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/08 01:31:11 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int	main(int argc, char *argv[], char **envp)
 		// ft_parsing(&mini_sh, "ls -l --color=never 	 -a | /usr/bin/grep -i --color=never  	   in >     result.txt");
 		// mini_sh.output = readline("\n\033[31m>\033[0m");
 		// printf(BLUE"mini_sh.output: %s\n"RESET, mini_sh.output);
+		mini_sh.sep_2 = 0;
+		mini_sh.nbr_word = 0;
+		// add_history(mini_sh.output);
 		// printf("mini_sh.output[5]-48: %i\n", mini_sh.output[5]-48);
 		// process 
 		ft_parsing(&mini_sh);
@@ -64,13 +67,6 @@ int	main(int argc, char *argv[], char **envp)
 	// 	{
 	// 		char **str;
 	// 		int res;
-	// >
-	// <
-	// |
-	// CMD |
-	
-	// > _FILE
-	// < _FILE
 	
 	// 		str = ft_split(mini_sh.output, ' ');
 	// 		res = atoi(str[1]);

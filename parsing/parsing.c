@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:10:55 by gael              #+#    #+#             */
-/*   Updated: 2023/03/06 14:38:12 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/10 10:11:33 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,11 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 			put_word_in_minish(mini_sh, line, &save, &ite);
 			// printf("mini_sh->rl_out->word: %s\n", mini_sh->rl_out->word);
 		}
-		// expand(mini_sh);
+		ft_print_rl_out(mini_sh);
+		expand(mini_sh);xx_yy
 		if (set_type(mini_sh) == FAIL)
 			return (printf(" ----- something wrong happend ----- \n"), FAIL);
-		// remove_quote(mini_sh);
+		// remove_quote(mini_sh); xx yy
 		ft_print_rl_out(mini_sh);
 	}
 	return (len_global + 1);
@@ -140,7 +141,7 @@ int	ft_parsing(t_mini_sh *mini_sh)
 	// printf("\"abcdef\"$			 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "\"abcdef\""));
 	// printf("cat |$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "cat |"));
 	// printf("|$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "|"));
-	printf("< /usr/bin/ls -la -le | cat > out$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "< /usr/bin/ls -la -le | cat > out"));
+	// printf("< /usr/bin/ls -la -le | cat > out$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "< /usr/bin/ls -la -le | cat > out"));
 	// printf("ls$				 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "ls"));
 	// printf("  \"abcdef\"  $			 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "  \"abcdef\"  "));
 	// printf("  abcdef  $			 %i 1\n------------------------------------------------\n", build_result_output(mini_sh, "  abcdef  "));
@@ -153,9 +154,9 @@ int	ft_parsing(t_mini_sh *mini_sh)
 	// printf("  0123 \"abc'def\" xyz'  $	%i -1\n------------------------------------------------\n", build_result_output(mini_sh, "  0123 \"abc'def\" xyz'  "));
 	// printf("  < 	 lib  /usr/bin/grep -i | \"abc $TERM def\" \"\" | \'\"$TERM\"\' \"\'$TERM\'\" --color=never  	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l --color=never  	 -a | echo >\"|\" \"| >>\""BACK_RED"$	%i 22"RST"\n------------------------------------------------\n",
 	// build_result_output(mini_sh, "  < 	 lib  /usr/bin/grep -i | \"abc $TERM def\" \"\" | \'\"$TERM\"\' \"\'$TERM\'\" --color=never 	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l --color=never 	 -a | echo \"|\" \"| >>\""));
-	// printf("  < 	 lib  /usr/bin/grep -ri in | echo \"abc $TERM def\" \"\" | echo \'\"$TERM\"\' \"\'$TERM\'\"   	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l  --color=never  	 -a | echo >\"|\" \"| >>\""BACK_RED"$	%i 25"RST"\n------------------------------------------------\n",
-	// build_result_output(mini_sh, "  < 	 lib  /usr/bin/grep -ri in | echo \"abc $TERM def\" \"\" | echo \'\"$TERM\"\' \"\'$TERM\'\"  	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l  --color=never 	 -a | echo \"|\" \"| >>\""));
-
+	printf("  < 	 lib  /usr/bin/grep -ri in | echo \"abc $TERM def\" $USER xyz \"$$\" \"$\" $ | echo \'\"$TERM\"\' \"\'$TERM\'\"   	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l  --color=never  	 -a | echo >\"|\" \"| >>\""BACK_RED"$	%i 27"RST"\n------------------------------------------------\n",
+	build_result_output(mini_sh, "  < 	 lib  /usr/bin/grep -ri in | echo \"abc $TERM def\" $USER xyz \"$$\" \"$\" $ | echo \'\"$TERM\"\' \"\'$TERM\'\"  	  >   \'$USER\'\" $abc\'$USER\'-$USER.txt\"   	| ls -l  --color=never 	 -a | echo \"|\" \"| >>\""));
+	// build_result_output(mini_sh, mini_sh->output);
 	prepare_exec(mini_sh);
 	return (SUCCESS);
 	(void)mini_sh;

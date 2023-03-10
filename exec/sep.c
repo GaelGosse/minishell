@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:25:36 by gael              #+#    #+#             */
-/*   Updated: 2023/03/06 13:26:31 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/08 01:30:47 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	count_sep_2(t_mini_sh *mini_sh)
 	if (check_first_sep_error_2(mini_sh) == FAIL)
 		return (FAIL);
 	tmp = tmp->next;
-	while (tmp->next != NULL)
+	while (tmp && tmp->next != NULL)
 	{
 		if (is_sep(tmp->word) == SUCCESS)
 			mini_sh->sep_2++;
@@ -128,6 +128,5 @@ int	count_sep_2(t_mini_sh *mini_sh)
 			return (FAIL);
 		}
 	}
-	printf("res = %d\n", mini_sh->sep_2);
 	return (SUCCESS);
 }

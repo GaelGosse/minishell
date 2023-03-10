@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:52:27 by gael              #+#    #+#             */
-/*   Updated: 2023/03/06 15:03:45 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/08 01:30:34 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,38 @@ int	count_word_for_alloc(t_mini_sh *mini_sh, t_arr_output *rlout)
 		tmp = tmp->next;
 	while (tmp)
 	{
-		//printf("word = %s\n", tmp->word);
-		//printf("nbr_word = %d\n", mini_sh->nbr_word);
 		if (is_sep(tmp->word) == SUCCESS)
-		{
-			//printf("word in = %s\n", tmp->word);
 			return (SUCCESS);
-		}
 		mini_sh->nbr_word++;
-		//printf("nbr_word = %d\n", mini_sh->nbr_word);
 		if (tmp)
 			tmp = tmp->next;
 	}
-	//printf("nbr_word = %d\n", mini_sh->nbr_word);
 	return (SUCCESS);
+}
+
+void	free_exec(t_mini_sh *mini_sh)
+{
+	int		free_third;
+	int		free_second;
+
+	free_third = 0;
+	while (mini_sh->prepare_exec[free_third])
+	{
+		free_second = 0;
+		while (mini_sh->prepare_exec[free_third][free_second])
+		{
+			if (mini_sh->prepare_exec[free_third][free_second])
+				free(mini_sh->prepare_exec[free_third][free_second]);
+			mini_sh->prepare_exec[free_third][free_second] = NULL;
+			free_second++;
+		}
+		if (mini_sh->prepare_exec[free_third])
+			free(mini_sh->prepare_exec[free_third]);
+		mini_sh->prepare_exec[free_third] = NULL;
+		free_third++;
+	}
+	free(mini_sh->prepare_exec);
+	mini_sh->prepare_exec = NULL;
 }
 
 int	prepare_exec(t_mini_sh *mini_sh)
@@ -66,7 +84,7 @@ int	prepare_exec(t_mini_sh *mini_sh)
 	tmp = mini_sh->rl_out_head;
 	if (count_sep_2(mini_sh) == FAIL)
 		return (FAIL);
-	mini_sh->prepare_exec = (char ***)malloc((sizeof (char **)) * (mini_sh->sep_2 + 1));
+	mini_sh->prepare_exec = (char ***)malloc((sizeof (char **)) * (mini_sh->sep_2 + 2));
 	if (!mini_sh->prepare_exec)
 		return (FAIL_MALLOC);
 	if (is_sep(tmp->word) == SUCCESS)
@@ -78,13 +96,11 @@ int	prepare_exec(t_mini_sh *mini_sh)
 			return (FAIL);
 		dble = 0;
 		mini_sh->prepare_exec[triple] = (char **)malloc((sizeof (char *)) * (mini_sh->nbr_word + 1));
-		printf(BACK_PURPLE"mini_sh->nbr_word: %i"RST"\n", mini_sh->nbr_word);
 		mini_sh->nbr_word = 0;
 		while (tmp && is_sep(tmp->word) == FAIL)
 		{
 			mini_sh->prepare_exec[triple][dble] = ft_strdup(tmp->word);
 			dble++;
-			printf(BACK_RED"1"RST"\n");
 			if (!tmp->next)
 				break;
 			else
@@ -92,7 +108,6 @@ int	prepare_exec(t_mini_sh *mini_sh)
 		}
 		mini_sh->prepare_exec[triple][dble] = NULL;
 		triple++;
-		printf(BACK_BLUE"2"RST"\n");
 		if (!tmp->next)
 			break;
 		else
@@ -100,12 +115,13 @@ int	prepare_exec(t_mini_sh *mini_sh)
 	}
 	mini_sh->prepare_exec[triple] = NULL;
 
-	len = 0;
-	while (mini_sh->prepare_exec[len])
-	{
-		printf(BACK_CYAN"mini_sh->prepare_exec[%i][0]: %s"RST"\n", len, mini_sh->prepare_exec[len][0]);
-		len++;
-	}
-	printf(BACK_GREEN"3"RST"\n");
+	// len = 0;
+	// while (mini_sh->prepare_exec[len])
+	// {
+	// 	printf(BACK_CYAN"mini_sh->prepare_exec[%i][0]: %s"RST"\n", len, mini_sh->prepare_exec[len][0]);
+	// 	len++;
+	// }
+	free_exec(mini_sh);
+	(void)len;
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:54:57 by ggosse            #+#    #+#             */
-/*   Updated: 2023/03/03 20:29:48 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/09 22:04:17 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ char	*ft_find_var_env(char **envp, char *var_search)
 	int		ite_env_char;
 	int		save;
 	char	*res_var_env;
+	char	*final;
 
+	final = NULL;
 	res_var_env = NULL;
 	save = 0;
 	ite_env_char = 0;
@@ -106,12 +108,14 @@ char	*ft_find_var_env(char **envp, char *var_search)
 					ite_env_char++;
 				free(res_var_env);
 				free(var_env);
-				return (ft_strdup_len(envp[ite_env], save, ite_env_char));
+				final = ft_strdup_len(envp[ite_env], save, ite_env_char);
+				return (final);
 			}
 			free(res_var_env);
 			free(var_env);
 		}
 	}
+	(void)save;
 	(void)ite_env_char;
 	(void)ite_env;
 	(void)var_env;

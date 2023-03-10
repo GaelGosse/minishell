@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:48:45 by gael              #+#    #+#             */
-/*   Updated: 2023/03/06 15:03:48 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/10 09:12:37 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int				ft_is_sep_expand(char chr);
 int				ft_is_sep_parse(char chr);
 int				ft_is_valid_export(char chr);
 int				ft_isalpha(int chr);
+int				valid_identifier(int chr);
 //lib/ft_split.c
 char			**ft_split(const char *str, char sep);
 //lib/ft_lstnew_word.c
@@ -103,6 +104,7 @@ t_arr_output *ft_lstnew_malloc(int size);
 t_arr_output *ft_lstnew_word(char *content, int save, int ite);
 //lib/ft_strjoin.c
 char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strjoin_dfree(char *s1, char *s2);
 char			*ft_strjoin_lfree(char *s1, char *s2);
 char			*ft_strjoin_rfree(char *s1, char *s2);
 //lib/ft_strdup.c
@@ -118,6 +120,7 @@ int				is_sep(char *word);
 //exec/prepare_exec.c
 int				count_double_arr(t_mini_sh *mini_sh);
 int				count_word_for_alloc(t_mini_sh *mini_sh, t_arr_output *rlout);
+void			free_exec(t_mini_sh *mini_sh);
 int				prepare_exec(t_mini_sh *mini_sh);
 //free/free_parsing.c
 void			free_env(t_mini_sh *mini_sh);
@@ -127,18 +130,15 @@ void			ft_lstclear(t_arr_output **lst);
 //parsing/expand.c
 void			expand(t_mini_sh *mini_sh);
 int				ft_isthere_dollar(t_mini_sh *mini_sh);
-int				print_interpreted(t_mini_sh *mini_sh);
-void			replace_dollar(t_mini_sh * mini_sh);
+void			init_quote(t_mini_sh *mini_sh);
+int				interpreted(t_mini_sh *mini_sh);
+void			replace_dollar(t_mini_sh * mini_sh, int *i_replace);
 void			toggle_quote(t_mini_sh *mini_sh, char chr);
 //parsing/ft_find_path.c
 int				ft_find_cmd(t_mini_sh *mini_sh, int ite_env);
 int				ft_find_env(t_mini_sh *mini_sh);
 int				ft_find_path(t_mini_sh *mini_sh);
 char			*ft_find_var_env(char **envp, char *var_search);
-//parsing/remove_quote.c
-int				coun_without_qt(char *str);
-void			remove_quote(t_mini_sh *mini_sh);
-char			*write_without_qt(char *str);
 //parsing/set_type.c
 int				is_built_in(t_mini_sh *mini_sh);
 int				set_type(t_mini_sh *mini_sh);
@@ -154,6 +154,9 @@ void			ft_print_rl_out(t_mini_sh *mini_sh);
 void			print_word(char *new_w);
 void			print_word2(char *new_w);
 void			put_word_in_minish(t_mini_sh *mini_sh, char *line, int *save, int *ite);
+//test.c
+char			*ft_strdup_len(char *str, int start, int end);
+char			*ft_test(char *str);
 //built_in/echo.c
 int				ft_echo(char **str);
 //built_in/cd.c
