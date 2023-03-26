@@ -11,52 +11,72 @@ NC = \033[0m
 
 ##### VAR #####
 NAME   = minishell
-CC     = gcc -Wall -Werror -Wextra
-# --analyzer
-# -fdump-rtl-expand
-# CC     = clang -fsanitize=memory -fno-omit-frame-pointer
-# CC     = clang -fsanitize=address -fno-omit-frame-pointer
+CC     = gcc -Wall -Werror -Wextra -g3 
 # -MMD -MP
 
-# SRC  := main_mael.c \
-# lib/ft_strncmp.c \
-# built_in/echo.c \
+SRC  := main.c \
+lib/bzero.c \
+lib/envp_size.c \
+lib/ft_getenv.c \
+lib/ft_cmp.c \
+lib/ft_is_separator.c \
+lib/ft_lstadd_back.c \
+lib/ft_lstnew_word.c \
+lib/ft_split.c \
+lib/ft_strdup.c \
+lib/ft_strjoin.c \
+lib/ft_strlen.c \
+lib/ft_itoa.c \
+lib/ft_putstr_fd.c \
+built_in/echo.c \
+built_in/cd.c \
+built_in/pwd.c \
+built_in/env.c \
+built_in/export_arg.c \
+built_in/export_simple.c \
+built_in/unset.c \
+built_in/is_built_in.c \
+built_in/built_in_utils.c \
+signal/exec_signal.c \
+signal/handle_ctrl_c.c \
+free/free_parsing.c \
+parsing/expand.c \
+parsing/parsing.c \
+parsing/set_type.c \
+parsing/quote.c \
+parsing/remove_quote_2.c \
+parsing/find_var_env.c \
+parsing/ft_find_path.c \
+parsing/print.c \
+exec/prepare_exec.c \
+exec/sep.c \
+exec/which_sep.c \
+exec/start_exec_2.c \
+exec/exec_utils.c \
+exec/child_process.c \
+exec/heredoc.c \
+exec/sep_test.c \
 
-SRC  :=	main.c \
-		lib/ft_cmp.c \
-		lib/ft_strdup.c \
-		lib/ft_strlen.c \
-		lib/ft_is_separator.c \
-		lib/ft_lstnew_word.c \
-		lib/ft_lstadd_back.c \
-		lib/ft_split.c \
-		lib/ft_strjoin.c \
-		free/free_parsing.c \
-		parsing/expand.c \
-		parsing/parsing.c \
-		parsing/set_type.c \
-		parsing/quote.c \
-		parsing/remove_quote.c \
-		parsing/ft_find_path.c \
-		exec/sep.c \
-		exec/prepare_exec.c 
+# ls -l -a | /usr/bin/grep -ion s > sqve | echo abc"' $USER'"def$ic >> ./sqve | cat << abc > outfile 
+# echo abc'" $USER$$ic$TERM"'def$ic | echo abc"' $USER$$ic$TERM'"def
+# echo abc'" $USER$$ic$TERM"'def$mp
+# echo abc"' $USER$$ic$TERM'"def$xe
 
 OBJ = $(SRC:%.c=%.o)
 OBJS_MAEL = $(SRC_MAEL:%.c=%.o)
 DEPS = $(OBJ:%.o=%.d)
 
-OBJ_DIR := objs_mael/
+OBJ_DIR := objs/
 OBJ_MAEL = $(addprefix $(OBJ_DIR), ${SRC_MAEL:.c=.o})
 
 ##### RULES #####
 all: $(NAME)
 
 $(NAME) : $(OBJ)
+	@echo
 	@echo -e "${CYAN} ----- compile -----${NC}"
 	@echo
 	$(CC) $(OBJ) -lreadline -o $(NAME) 
-	@echo
-	@echo -e "${CYAN} ----- ✅ compiled -----${NC}"
 
 # ${OBJ_DIR}%.o : %.c
 

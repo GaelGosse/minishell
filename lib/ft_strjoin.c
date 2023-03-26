@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:19:59 by gael              #+#    #+#             */
-/*   Updated: 2023/03/10 07:46:55 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/15 23:41:55 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*ft_strjoin_dfree(char *s1, char *s2)
 	str[i] = '\0';
 	return (free(s1), free(s2), str);
 }
+
 char	*ft_strjoin_lfree(char *s1, char *s2)
 {
 	char			*str;
