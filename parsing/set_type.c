@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_type.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:12:05 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 23:08:47 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/27 15:32:31 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	type_utils_1(t_mini_sh *mini_sh)
 		mini_sh->rl_out->type = BUILT_IN;
 	else if (ft_find_env(mini_sh) == SUCCESS)
 	{
-		if (access(mini_sh->rl_out->word, F_OK) == 0)
+		if (access(mini_sh->rl_out->word, X_OK) == 0)
 			mini_sh->rl_out->type = CMD_ABS;
 		else
 			mini_sh->rl_out->type = CMD;
@@ -82,6 +82,9 @@ int	type_utils_4(t_mini_sh *mini_sh)
 	else if (ft_strncmp("-", mini_sh->rl_out->word, 0) == 0
 		&& mini_sh->rl_out->type == FAIL)
 		mini_sh->rl_out->type = OPTION;
+	else if (opendir(mini_sh->rl_out->word) != NULL
+		&& mini_sh->rl_out->type == FAIL)
+		mini_sh->rl_out->type = _DIR;
 	else if (access(mini_sh->rl_out->word, F_OK) == 0
 		&& mini_sh->rl_out->type == FAIL)
 		mini_sh->rl_out->type = _FILE;

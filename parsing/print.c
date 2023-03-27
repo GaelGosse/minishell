@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:46:59 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 22:56:25 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/27 15:08:18 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	print_type(int type)
 		printf(BLUE"BUILT_IN"RST"\n");
 	else if (type == EOFL)
 		printf(BLUE"EOFL"RST"\n");
+	else if (type == _DIR)
+		printf(BLUE"_DIR"RST"\n");
 	else
 		printf(BACK_RED"0"RST"\n");
 }

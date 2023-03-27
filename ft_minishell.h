@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:14:58 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 23:10:16 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/27 15:02:20 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ enum e_type
 	HR_DOC,
 	BUILT_IN,
 	EOFL,
+	_DIR,
 };
 
 typedef struct s_exec_tools
@@ -95,7 +96,7 @@ typedef struct s_exec_tools
 	int	fd_out;
 	int	fd_r;
 	int	fd_l;
-	int	fd_hr;
+	int	*fd_hr;
 	int	fd_app;
 	int	fd[2];
 	int	**tab_fd;
