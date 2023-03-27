@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:14:58 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 18:07:17 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/26 23:10:16 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ typedef struct s_list
 	char				*line;
 	int					index;
 	struct s_list		*next;
-}   t_list;
+}						t_list;
 
 typedef struct s_arr_output
 {
 	char				*word;
 	int					type;
 	struct s_arr_output	*next;
-	struct s_arr_output *prev;
-}		t_parse;
+	struct s_arr_output	*prev;
+}						t_parse;
 
 // typedef struct s_mini_sh
 // {
@@ -85,7 +85,7 @@ enum e_type
 	APPEND,
 	HR_DOC,
 	BUILT_IN,
-	EOF
+	EOFL,
 };
 
 typedef struct s_exec_tools
@@ -99,7 +99,7 @@ typedef struct s_exec_tools
 	int	fd_app;
 	int	fd[2];
 	int	**tab_fd;
-} t_exec_t;
+}		t_exec_t;
 
 typedef struct s_env
 {
@@ -108,18 +108,19 @@ typedef struct s_env
 	char	*dest;
 	char	*temp;
 	int		size;
-	int 	count;
+	int		count;
 	int		ite_genv;
-}   t_env;
+}			t_env;
 
 typedef struct s_mini_sh
 {
-	int 			sep_id;
+	int				sep_id;
 	char			*file_heredoc;
 	int				*hr_doc_tab;
 	char			*output;
 	char			**env;
 	char			***prepare_exec;
+	int				**prepare_exec_type;
 	int				len_prepare_exec;
 	int				is_dquote;
 	int				is_squote;
@@ -132,9 +133,9 @@ typedef struct s_mini_sh
 	pid_t			*pids;
 	t_env			*data;
 	t_exec_t		*exec;
-	t_parse	*rl_out;
-	t_parse	*rl_out_head;
-}	t_mini_sh;
+	t_parse			*rl_out;
+	t_parse			*rl_out_head;
+}					t_mini_sh;
 // ---------------------------- end struct ---------------------------------- //
 
 //lib/ft_lstadd_back.c
@@ -203,7 +204,9 @@ int		start_exec(t_mini_sh *mini_sh);
 //exec/prepare_exec.c
 int		count_word_for_alloc(t_mini_sh *mini_sh, t_parse *rlout);
 void	free_exec(t_mini_sh *mini_sh);
+void	free_exectype(t_mini_sh *mini_sh);
 int		prepare_exec(t_mini_sh *mini_sh);
+void	print_prep_exec(t_mini_sh *mini_sh);
 //exec/child_process.c
 char	*ft_find_cmd_2(t_mini_sh *mini_sh, int ite_env, char *cmd_to_find);
 char	*ft_find_path_2(t_mini_sh *mini_sh, char *cmd_to_find);
@@ -229,7 +232,7 @@ void	expand(t_mini_sh *mini_sh);
 int		ft_isthere_dollar(t_mini_sh *mini_sh);
 void	init_quote(t_mini_sh *mini_sh);
 int		interpreted(t_mini_sh *mini_sh);
-void	replace_dollar(t_mini_sh * mini_sh, int *i_replace);
+void	replace_dollar(t_mini_sh *mini_sh, int *i_replace);
 void	toggle_quote(t_mini_sh *mini_sh, char chr);
 //parsing/ft_find_path.c
 int		ft_find_cmd(t_mini_sh *mini_sh, int ite_env);

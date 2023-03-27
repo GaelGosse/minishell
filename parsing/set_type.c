@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:12:05 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 18:07:23 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/26 23:08:47 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	type_utils_2(t_mini_sh *mini_sh)
 		else
 			return (printf("minishell: syntax error with <<"), FAIL);
 	}
+	if (mini_sh->rl_out->prev && mini_sh->rl_out->prev->type == HR_DOC)
+		mini_sh->rl_out->type = EOFL;
 	return (SUCCESS);
 }
 
@@ -85,8 +87,6 @@ int	type_utils_4(t_mini_sh *mini_sh)
 		mini_sh->rl_out->type = _FILE;
 	else if (mini_sh->rl_out->type == FAIL)
 		mini_sh->rl_out->type = ARG;
-	else if (mini_sh->rl_out->prev->type == HR_DOC)
-		mini_sh->rl_out->type = EOF;
 	return (SUCCESS);
 }
 

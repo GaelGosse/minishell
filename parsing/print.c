@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mael <mael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:46:59 by gael              #+#    #+#             */
-/*   Updated: 2023/03/24 11:34:54 by mael             ###   ########.fr       */
+/*   Updated: 2023/03/26 22:56:25 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,31 @@ void	print_word2(char *new_w)
 void	print_type(int type)
 {
 	if (type == CMD)
-		fprintf(stderr, BLUE"CMD"RST"\n");
+		printf(BLUE"CMD"RST"\n");
 	else if (type == CMD_ABS)
-		fprintf(stderr, BLUE"CMD_ABS"RST"\n");
+		printf(BLUE"CMD_ABS"RST"\n");
 	else if (type == PIPE)
-		fprintf(stderr, BLUE"PIPE"RST"\n");
+		printf(BLUE"PIPE"RST"\n");
 	else if (type == ARG)
-		fprintf(stderr, BLUE"ARG"RST"\n");
+		printf(BLUE"ARG"RST"\n");
 	else if (type == REDIR_L)
-		fprintf(stderr, BLUE"REDIR_L"RST"\n");
+		printf(BLUE"REDIR_L"RST"\n");
 	else if (type == APPEND)
-		fprintf(stderr, BLUE"APPEND"RST"\n");
+		printf(BLUE"APPEND"RST"\n");
 	else if (type == HR_DOC)
-		fprintf(stderr, BLUE"HR_DOC"RST"\n");
+		printf(BLUE"HR_DOC"RST"\n");
 	else if (type == REDIR_R)
-		fprintf(stderr, BLUE"REDIR_R"RST"\n");
+		printf(BLUE"REDIR_R"RST"\n");
 	else if (type == OPTION)
-		fprintf(stderr, BLUE"OPTION"RST"\n");
+		printf(BLUE"OPTION"RST"\n");
 	else if (type == _FILE)
-		fprintf(stderr, BLUE"_FILE"RST"\n");
+		printf(BLUE"_FILE"RST"\n");
 	else if (type == BUILT_IN)
-		fprintf(stderr, BLUE"BUILT_IN"RST"\n");
+		printf(BLUE"BUILT_IN"RST"\n");
+	else if (type == EOFL)
+		printf(BLUE"EOFL"RST"\n");
 	else
-		fprintf(stderr, BACK_RED"0"RST"\n");
-	fprintf(stderr, "\n");
+		printf(BACK_RED"0"RST"\n");
 }
 
 void	ft_print_rl_out(t_mini_sh *mini_sh)
@@ -72,11 +73,14 @@ void	ft_print_rl_out(t_mini_sh *mini_sh)
 	t_parse	*tmp;
 
 	tmp = mini_sh->rl_out_head;
+	printf("START_PRINT\n");
 	while (tmp)
 	{
 		print_word(tmp->word);
 		if (tmp->type)
 			print_type(tmp->type);
+		printf("\n");
 		tmp = tmp->next;
 	}
+	printf("END_PRINT\n");
 }

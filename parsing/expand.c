@@ -6,13 +6,13 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 02:21:41 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 18:03:29 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/26 19:40:51 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_minishell.h"
 
-void	replace_dollar(t_mini_sh * mini_sh, int *i_replace)
+void	replace_dollar(t_mini_sh *mini_sh, int *i_replace)
 {
 	int		save;
 	int		save2;

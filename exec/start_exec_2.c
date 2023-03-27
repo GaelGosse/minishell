@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:33:14 by mael              #+#    #+#             */
-/*   Updated: 2023/03/26 17:30:50 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/26 23:04:06 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,12 @@ int	if_hrdoc(t_mini_sh *mini_sh, int i_exec)
 	input = NULL;
 	if (mini_sh->sep_type[i_exec] && mini_sh->sep_type[i_exec] == HR_DOC)
 	{
+		printf("mini_sh->prepare_exec[%i][0]: %s\n", i_exec, mini_sh->prepare_exec[i_exec][0]);
+		printf("mini_sh->prepare_exec_type[%i][0]: ", i_exec);
+		print_type(mini_sh->prepare_exec_type[i_exec][0]);
 		while (1)
 		{
 			input = readline("@>");
-			printf("mini_sh->prepare_exec[%i][0]: %s\n", i_exec, mini_sh->prepare_exec[i_exec][0]);
 			if (ft_strncmp(input, mini_sh->prepare_exec[i_exec][0], ft_strlen(input)) == 0)
 				exit (1);
 		}
