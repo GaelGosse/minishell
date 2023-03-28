@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:14:58 by gael              #+#    #+#             */
-/*   Updated: 2023/03/27 15:02:20 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/28 17:58:44 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ void	init_res_var(char **res_varenv, int *save, int *i_char, int *i_env);
 //parsing/remove_quote_2.c
 int		isthere_quote(t_mini_sh *mini_sh);
 void	remove_quote_2(t_mini_sh *mini_sh);
-char	*write_without_qt_2(char *str);
+char	*write_without_qt(char *str);
 //parsing/print.c
 void	ft_print_rl_out(t_mini_sh *mini_sh);
 void	print_type(int type);
@@ -303,5 +303,7 @@ int		export_cd(char **str, t_mini_sh *mini_sh);
 void	export_home(char *home, t_mini_sh *mini_sh);
 int		ft_cd(char **str, t_mini_sh *mini_sh);
 void	replace_pwd(t_mini_sh *mini_sh, int *is_exist, char *oldpwd);
+
+void	init_hrdoc(t_mini_sh *mini_sh);
 
 #endif

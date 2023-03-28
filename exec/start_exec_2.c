@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:33:14 by mael              #+#    #+#             */
-/*   Updated: 2023/03/27 15:55:03 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:54:41 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,50 +141,6 @@ int	if_redir_r(t_mini_sh *mini_sh, int i_exec)
 	return (SUCCESS);
 }
 
-void	open_hrdoc(t_mini_sh *mini_sh)
-{
-	char	*filename;
-	int		ite_file;
-
-	ite_file = 0;
-	mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
-	filename = ft_strjoin_rfree(".heredoc", ft_itoa(ite_file));
-	while (access(filename, F_OK) == 0)
-	{
-		mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
-		filename = ft_strjoin_rfree(".heredoc", ft_itoa(ite_file));
-		ite_file++;
-	}
-	mini_sh->exec->fd_hr[0] = open(filename, O_CREAT | O_RDWR, 0644);
-	printf(GREEN"filename: %s"RESET"\n", filename);
-	(void)mini_sh;
-}
-
-int	if_hrdoc(t_mini_sh *mini_sh, int i_exec)
-{
-	char	*input;
-
-	input = NULL;
-	if ((mini_sh->sep_type[i_exec] && mini_sh->sep_type[i_exec] == HR_DOC && mini_sh->prepare_exec_type[i_exec][0] == EOFL)
-	|| (mini_sh->sep_type[i_exec - 1] && mini_sh->sep_type[i_exec - 1] == HR_DOC && mini_sh->prepare_exec_type[i_exec][0] == EOFL))
-	{
-		open_hrdoc(mini_sh);
-		while (1)
-		{
-			input = readline("@>");
-			if (ft_strncmp(input, mini_sh->prepare_exec[i_exec][0], ft_strlen(input)) == 0)
-			{
-				close_all(mini_sh);
-				exit (0);
-			}
-			ft_putstr_fd(input, mini_sh->hr_doc_tab[0]);
-		}
-		if (mini_sh->exec->tab_fd[i_exec][1] > 2)
-			close(mini_sh->exec->tab_fd[i_exec][1]);
-		mini_sh->exec->fd_out = mini_sh->exec->fd_r;
-	}
-	return (SUCCESS);
-}
 
 int	init_fd_exec(t_mini_sh *mini_sh, int i_exec)
 {
@@ -236,7 +192,7 @@ int	start_exec(t_mini_sh *mini_sh)
 	mini_sh->pids = (pid_t *)malloc((sizeof (pid_t)) * (mini_sh->sep_2 + 1));
 	if (!mini_sh->pids)
 		return (FAIL_MALLOC);
-	init_hrdoc(mini_sh);
+	// init_hrdoc(mini_sh);
 	while (mini_sh->prepare_exec[i_exec])
 	{
 		if (exec_builtin(mini_sh, i_exec) == FAIL)

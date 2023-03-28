@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:52:27 by gael              #+#    #+#             */
-/*   Updated: 2023/03/27 14:52:15 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:13:40 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	print_prep_exec(t_mini_sh *mini_sh)
 		j = 0;
 		while (mini_sh->prepare_exec[i][j])
 		{
-			printf(CYAN"%s\n", mini_sh->prepare_exec[i][j]);
+			printf(BACK_CYAN"%s\n", mini_sh->prepare_exec[i][j]);
 			print_type(mini_sh->prepare_exec_type[i][j]);
 			printf("\n");
 			j++;

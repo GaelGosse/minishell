@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 02:21:41 by gael              #+#    #+#             */
-/*   Updated: 2023/03/26 19:40:51 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/28 15:59:24 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,17 @@ void	expand(t_mini_sh *mini_sh)
 	mini_sh->rl_out = mini_sh->rl_out_head;
 	while (mini_sh->rl_out)
 	{
-		init_quote(mini_sh);
-		i_dollar = ft_isthere_dollar(mini_sh);
-		while (i_dollar != -1)
+		if (mini_sh->rl_out->prev && ft_strncmp(mini_sh->rl_out->prev->word, "<<", ft_strlen(mini_sh->rl_out->prev->word)) != 0)
 		{
 			init_quote(mini_sh);
-			replace_dollar(mini_sh, &i_dollar);
-			init_quote(mini_sh);
 			i_dollar = ft_isthere_dollar(mini_sh);
+			while (i_dollar != -1)
+			{
+				init_quote(mini_sh);
+				replace_dollar(mini_sh, &i_dollar);
+				init_quote(mini_sh);
+				i_dollar = ft_isthere_dollar(mini_sh);
+			}
 		}
 		mini_sh->rl_out = mini_sh->rl_out->next;
 	}

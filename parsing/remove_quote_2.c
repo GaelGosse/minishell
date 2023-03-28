@@ -3,38 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quote_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 23:19:01 by gael              #+#    #+#             */
-/*   Updated: 2023/03/16 14:36:17 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/28 19:06:53 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_minishell.h"
 
-char	*write_without_qt_2(char *str)
+/*
+echo abc"'def'"ghi'j'k"l"mnop
+*/
+
+char	*save_wo_qt(char **str_wo_qt, char **str, int *i_act)
+{
+	
+	while ((*str)[(*i_act)] && ((*str)[(*i_act)] != D_QUOTE && (*str)[(*i_act) != S_QUOTE]))
+	{
+		printf(YELLOW"%c"RESET"", (*str)[(*i_act)]);
+		(*i_act)++;
+	}
+	printf(" ");
+	(void)str_wo_qt;
+	(void)str;
+	(void)i_act;
+}
+
+char	*write_without_qt(char *str)
 {
 	char	*str_wo_qt;
-	int		i_write;
-	int		i_copy;
+	int	i_act;
 
-	str_wo_qt = malloc(sizeof (char) * (ft_strlen(str) - 1));
-	str_wo_qt[(ft_strlen(str) - 1)] = '\0';
-	i_write = 0;
-	i_copy = 0;
-	while (str[i_write])
+	i_act = 0;
+	str_wo_qt = NULL;
+	printf(BOLD_YELLOW"%s"RESET"\n", str);
+	while (str[i_act])
 	{
-		if ((str[i_write] == S_QUOTE || str[i_write] == D_QUOTE))
-			i_write++;
-		else
-		{
-			str_wo_qt[i_copy] = str[i_write];
-			i_write++;
-			i_copy++;
-		}
+		save_wo_qt(&str_wo_qt, &str, &i_act);
+		// printf(YELLOW"str_wo_qt: %p"RESET"\n", str_wo_qt);
+		if (str[i_act])
+			i_act++;
 	}
-	printf(BACK_GREEN"str_wo_qt: %s"RST"\n", str_wo_qt);
-	return (str_wo_qt);
+	printf("\n");
+	return (str);
 }
 
 int	isthere_quote(t_mini_sh *mini_sh)
@@ -65,7 +77,7 @@ void	remove_quote_2(t_mini_sh *mini_sh)
 		{
 			save = ft_strdup(mini_tmp->rl_out->word);
 			free(mini_tmp->rl_out->word);
-			mini_tmp->rl_out->word = write_without_qt_2(save);
+			mini_tmp->rl_out->word = write_without_qt(save);
 			// free(save);
 		}
 		mini_tmp->rl_out = mini_sh->rl_out->next;
