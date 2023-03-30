@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:33:14 by mael              #+#    #+#             */
-/*   Updated: 2023/03/28 15:54:41 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:39:22 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	init_fd_exec(t_mini_sh *mini_sh, int i_exec)
 	else
 		mini_sh->exec->fd_out = mini_sh->exec->tab_fd[i_exec][1];
 	if_redir_r(mini_sh, i_exec);
-	if_hrdoc(mini_sh, i_exec);
+	// if_hrdoc(mini_sh, i_exec);
 	return (SUCCESS);
 }
 
@@ -193,6 +193,7 @@ int	start_exec(t_mini_sh *mini_sh)
 	if (!mini_sh->pids)
 		return (FAIL_MALLOC);
 	// init_hrdoc(mini_sh);
+	if_hrdoc(mini_sh);
 	while (mini_sh->prepare_exec[i_exec])
 	{
 		if (exec_builtin(mini_sh, i_exec) == FAIL)

@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:45:30 by ggosse            #+#    #+#             */
-/*   Updated: 2023/03/28 16:03:10 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:49:22 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,28 +161,33 @@ void	open_hrdoc(t_mini_sh *mini_sh)
 	(void)mini_sh;
 }
 
-int	if_hrdoc(t_mini_sh *mini_sh, int i_exec)
+int	if_hrdoc(t_mini_sh *mini_sh)
 {
 	char	*input;
+	int		i_hrdoc;
 
+	i_hrdoc = 0;
 	input = NULL;
-	if ((mini_sh->sep_type[i_exec] && mini_sh->sep_type[i_exec] == HR_DOC && mini_sh->prepare_exec_type[i_exec][0] == EOFL)
-	|| (mini_sh->sep_type[i_exec - 1] && mini_sh->sep_type[i_exec - 1] == HR_DOC && mini_sh->prepare_exec_type[i_exec][0] == EOFL))
+	while (mini_sh->prepare_exec[i_hrdoc])
 	{
-		open_hrdoc(mini_sh);
-		while (1)
+		if ((mini_sh->sep_type[i_hrdoc] && mini_sh->sep_type[i_hrdoc] == HR_DOC && mini_sh->prepare_exec_type[i_hrdoc][0] == EOFL)
+		|| (mini_sh->sep_type[i_hrdoc - 1] && mini_sh->sep_type[i_hrdoc - 1] == HR_DOC && mini_sh->prepare_exec_type[i_hrdoc][0] == EOFL))
 		{
-			input = readline("@>");
-			if (ft_strncmp(input, mini_sh->prepare_exec[i_exec][0], ft_strlen(input)) == 0)
+			open_hrdoc(mini_sh);
+			while (1)
 			{
-				close_all(mini_sh);
-				exit (0);
+				input = readline("@>");
+				if (ft_strncmp(input, mini_sh->prepare_exec[i_hrdoc][0], ft_strlen(input)) == 0)
+				{
+					close_all(mini_sh);
+					exit (0);
+				}
+				ft_putstr_fd(input, mini_sh->hr_doc_tab[0]);
 			}
-			// ft_putstr_fd(input, mini_sh->hr_doc_tab[0]);
+			if (mini_sh->exec->tab_fd[i_hrdoc][1] > 2)
+				close(mini_sh->exec->tab_fd[i_hrdoc][1]);
+			mini_sh->exec->fd_out = mini_sh->exec->fd_r;
 		}
-		if (mini_sh->exec->tab_fd[i_exec][1] > 2)
-			close(mini_sh->exec->tab_fd[i_exec][1]);
-		mini_sh->exec->fd_out = mini_sh->exec->fd_r;
 	}
 	return (SUCCESS);
 }

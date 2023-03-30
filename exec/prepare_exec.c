@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:52:27 by gael              #+#    #+#             */
-/*   Updated: 2023/03/28 18:13:40 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/30 11:40:45 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,10 @@ void	free_exec(t_mini_sh *mini_sh)
 void	free_exectype(t_mini_sh *mini_sh)
 {
 	int		free_third;
-	// int		free_second;
 
 	free_third = 0;
 	while (mini_sh->prepare_exec_type[free_third])
 	{
-		// free_second = 0;
-		// while (mini_sh->prepare_exec_type[free_third][free_second])
-		// {
-		// 	free(mini_sh->prepare_exec_type[free_third][free_second]);
-		// 	mini_sh->prepare_exec_type[free_third][free_second] = NULL;
-		// 	free_second++;
-		// }
 		if (mini_sh->prepare_exec_type[free_third])
 		{
 			free(mini_sh->prepare_exec_type[free_third]);

@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:14:58 by gael              #+#    #+#             */
-/*   Updated: 2023/03/28 17:58:44 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:49:35 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 // ---------------------------- end define ---------------------------------- //
 
 // ------------------------------ struct ------------------------------------ //
+
+
 
 typedef struct s_list
 {
@@ -96,7 +98,7 @@ typedef struct s_exec_tools
 	int	fd_out;
 	int	fd_r;
 	int	fd_l;
-	int	*fd_hr;
+	int	fd_hr;
 	int	fd_app;
 	int	fd[2];
 	int	**tab_fd;
@@ -196,7 +198,7 @@ void	child_process(t_mini_sh *mini_sh, int i_exec);
 void	close_all(t_mini_sh *mini_sh);
 int		exec_builtin(t_mini_sh *mini_sh, int i);
 void	exec_cmd(t_mini_sh *mini_sh, int i_exec);
-int		if_hrdoc(t_mini_sh *mini_sh, int i_exec);
+int		if_hrdoc(t_mini_sh *mini_sh);
 int		if_redir_r(t_mini_sh *mini_sh, int i_exec);
 int		init_fd_exec(t_mini_sh *mini_sh, int i_exec);
 int		init_sep_type(t_mini_sh *mini_sh);
@@ -305,5 +307,7 @@ int		ft_cd(char **str, t_mini_sh *mini_sh);
 void	replace_pwd(t_mini_sh *mini_sh, int *is_exist, char *oldpwd);
 
 void	init_hrdoc(t_mini_sh *mini_sh);
+int		save_wo_qt_first(char **str_wo_qt, char **str, int *i_act);
+int		save_wo_qt_rest(char **str_wo_qt, char **str, int *i_act, int last_qt);
 
 #endif

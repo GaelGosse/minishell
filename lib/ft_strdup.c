@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 23:08:55 by gael              #+#    #+#             */
-/*   Updated: 2023/03/15 23:41:39 by gael             ###   ########.fr       */
+/*   Updated: 2023/03/30 11:07:10 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*ft_strdup_len(char *str, int start, int end)
 
 	ite_res = 0;
 	ite_str = 0;
+	if (!str)
+		return (NULL);
 	while (str[ite_str])
 		ite_str++;
 	if (end > ite_str)
