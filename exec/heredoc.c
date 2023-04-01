@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:45:30 by ggosse            #+#    #+#             */
-/*   Updated: 2023/03/30 15:49:22 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/03/31 13:48:36 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,15 +148,34 @@ void	open_hrdoc(t_mini_sh *mini_sh)
 	int		ite_file;
 
 	ite_file = 0;
-	mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
+	// mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
 	filename = ft_strjoin_rfree(".heredoc", ft_itoa(ite_file));
 	while (access(filename, F_OK) == 0)
 	{
-		mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
+		// mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
 		filename = ft_strjoin_rfree(".heredoc", ft_itoa(ite_file));
 		ite_file++;
 	}
-	mini_sh->exec->fd_hr[0] = open(filename, O_CREAT | O_RDWR, 0644);
+	mini_sh->exec->fd_hr = open(filename, O_CREAT | O_RDWR, 0644);
+	printf(GREEN"filename: %s"RESET"\n", filename);
+	(void)mini_sh;
+}
+
+void	close_hrdoc(t_mini_sh *mini_sh)
+{
+	char	*filename;
+	int		ite_file;
+
+	ite_file = 0;
+	// mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
+	filename = ft_strjoin_rfree(".heredoc", ft_itoa(ite_file));
+	while (access(filename, F_OK) == 0)
+	{
+		// mini_sh->exec->fd_hr = malloc((sizeof (int)) * (2));
+		filename = ft_strjoin_rfree(".heredoc", ft_itoa(ite_file));
+		ite_file++;
+	}
+	mini_sh->exec->fd_hr = open(filename, O_CREAT | O_RDWR, 0644);
 	printf(GREEN"filename: %s"RESET"\n", filename);
 	(void)mini_sh;
 }
@@ -180,9 +199,9 @@ int	if_hrdoc(t_mini_sh *mini_sh)
 				if (ft_strncmp(input, mini_sh->prepare_exec[i_hrdoc][0], ft_strlen(input)) == 0)
 				{
 					close_all(mini_sh);
-					exit (0);
+					return(SUCCESS);
 				}
-				ft_putstr_fd(input, mini_sh->hr_doc_tab[0]);
+				ft_putstr_fd(input, mini_sh->exec->fd_hr);
 			}
 			if (mini_sh->exec->tab_fd[i_hrdoc][1] > 2)
 				close(mini_sh->exec->tab_fd[i_hrdoc][1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:30:08 by gael              #+#    #+#             */
-/*   Updated: 2023/03/15 23:40:53 by gael             ###   ########.fr       */
+/*   Updated: 2023/04/01 13:39:35 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_sep_parse(char chr)
 {
-	if ((int)chr == 32 || (int)chr == 9)
+	if ((int)chr == 32 || (int)chr == 9 || (int)chr == 124)
 		return (SUCCESS);
 	return (FAIL);
 }

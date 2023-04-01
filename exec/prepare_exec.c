@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:52:27 by gael              #+#    #+#             */
-/*   Updated: 2023/03/30 11:40:45 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/04/01 14:23:41 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	prepare_exec(t_mini_sh *mini_sh)
 	}
 	mini_sh->prepare_exec[triple] = NULL;
 	mini_sh->len_prepare_exec = triple;
-	print_prep_exec(mini_sh);
+	// print_prep_exec(mini_sh);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:14:58 by gael              #+#    #+#             */
-/*   Updated: 2023/03/30 15:49:35 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/04/01 14:26:14 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int		check_first_is_sep_2(t_mini_sh *mini_sh);
 int		check_first_sep_error_2(t_mini_sh *mini_sh);
 int		count_sep_2(t_mini_sh *mini_sh);
 int		is_sep(char *word);
-int		is_sep_num(int type);
+int		is_sep_type(int type);
 //exec/start_exec_2.c
 void	child_process(t_mini_sh *mini_sh, int i_exec);
 void	close_all(t_mini_sh *mini_sh);

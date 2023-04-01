@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:33:14 by mael              #+#    #+#             */
-/*   Updated: 2023/03/30 15:39:22 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/04/01 14:26:14 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,9 @@ void	exec_cmd(t_mini_sh *mini_sh, int i_exec)
 			exit (127);
 		}
 		else if (mini_sh->sep_type[i_exec - 1] != PIPE)
-		{
 			return ;
-		}
-		else if (mini_sh->sep_type[i_exec - 1] == PIPE && is_sep_num(mini_sh->sep_type[i_exec]) == SUCCESS)
-		{
+		else if (mini_sh->sep_type[i_exec - 1] == PIPE && is_sep_type(mini_sh->sep_type[i_exec]) == SUCCESS)
 			return ;
-		}
 		else
 		{
 			printf("minishell:%s: command not found\n", mini_sh->prepare_exec[i_exec][0]);
@@ -193,7 +189,7 @@ int	start_exec(t_mini_sh *mini_sh)
 	if (!mini_sh->pids)
 		return (FAIL_MALLOC);
 	// init_hrdoc(mini_sh);
-	if_hrdoc(mini_sh);
+	// if_hrdoc(mini_sh);
 	while (mini_sh->prepare_exec[i_exec])
 	{
 		if (exec_builtin(mini_sh, i_exec) == FAIL)

@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:10:55 by gael              #+#    #+#             */
-/*   Updated: 2023/03/27 14:58:47 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/04/01 16:11:13 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ int	build_result_output(t_mini_sh *mini_sh, char *line)
 		}
 		put_word_in_minish(mini_sh, line, &save, &ite);
 	}
+	ft_print_rl_out(mini_sh);
 	expand(mini_sh);
 	if (set_type(mini_sh) == FAIL)
 		return (FAIL);
-	// ft_print_rl_out0(mini_sh);
 	remove_quote_2(mini_sh);
 	if (prepare_exec(mini_sh) < 0)
 		return (FAIL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sep.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:25:36 by gael              #+#    #+#             */
-/*   Updated: 2023/03/25 18:01:42 by gael             ###   ########.fr       */
+/*   Updated: 2023/04/01 14:31:30 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_sep(char *word)
 	return (FAIL);
 }
 
-int	is_sep_num(int type)
+int	is_sep_type(int type)
 {
 	if (type == HR_DOC)
 		return (SUCCESS);
@@ -36,6 +36,8 @@ int	is_sep_num(int type)
 	else if (type == REDIR_R)
 		return (SUCCESS);
 	else if (type == APPEND)
+		return (SUCCESS);
+	else if (type == PIPE)
 		return (SUCCESS);
 	return (FAIL);
 }

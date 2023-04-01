@@ -6,7 +6,7 @@
 /*   By: ggosse <ggosse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 23:19:01 by gael              #+#    #+#             */
-/*   Updated: 2023/03/30 11:17:23 by ggosse           ###   ########.fr       */
+/*   Updated: 2023/04/01 16:09:59 by ggosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*write_without_qt(char *str)
 	last_qt = 0;
 	i_act = 0;
 	str_wo_qt = NULL;
-	printf(BOLD_YELLOW"%s"RESET"\n", str);
 	while (str[i_act])
 	{
 		i_start = i_act;
@@ -56,7 +55,6 @@ char	*write_without_qt(char *str)
 	}
 	if (str_wo_qt == NULL)
 		str_wo_qt = str;
-	(void)last_qt;
 	return (str_wo_qt);
 }
 
